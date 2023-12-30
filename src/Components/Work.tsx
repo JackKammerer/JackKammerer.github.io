@@ -18,7 +18,7 @@ const Work = ( data: WorkExperience ): React.JSX.Element => {
     let detailsElements: Array<React.JSX.Element> = data.details.map((element: string, pos: number) => <li key={pos}> {element} </li>);
 
     return (
-        <li className="mt-10 p-5 w-1/2 flex flex-wrap bg-gradient-to-t from-blue-800 to-transparent bg-no-repeat hover:bg-emerald-600">
+        <li className="mt-10 p-5 w-1/2 flex flex-wrap primary-dark">
             <div className="flex flex-wrap w-full">
                 <div className="mt-5 mb-5 mr-auto">
                     <h2 className="font-bold text-3xl mr-5"> {data.position}: </h2>

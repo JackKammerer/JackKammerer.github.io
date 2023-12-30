@@ -17,7 +17,7 @@
 }
 
 body {
-  @apply mt-0 bg-teal-200
+  @apply mt-0 bg-black text-white
 }
 
 /*body {
@@ -44,6 +44,31 @@ ul {
 }
 
 .titleClass {
-  @apply text-8xl underline mb-20
+  @apply text-8xl font-bold mb-20
 }
 
+.secondary-back {
+  background-color:#1A1A1A;
+}
+
+.primary-dark {
+  background-color: #1c2740
+}
+
+.contact-button::before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-image: url("https://lthub.ubc.ca/files/2021/06/GitHub-Logo.png");
+  background-size: contain;
+  background-repeat: repeat-x;
+  background-color: #264af4;
+  top: 0;
+  left: -100%;
+  transition: left 125ms ease;
+}
+
+.contact-button:hover::before {
+  left: 0;
+}

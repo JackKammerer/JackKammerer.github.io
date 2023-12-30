@@ -41,7 +41,7 @@ async function getRepos(): Promise<Array<repoData>>  {
 const GitHubProject = (props: repoData): React.JSX.Element => {
     if (!props.language) {
         return (
-            <a href={props.url} className="w-1/4 p-2 m-8 bg-gradient-to-bl from-green-600 to-teal-400 via-lime-400 hover:bg-orange-500">
+            <a href={props.url} className="w-1/4 p-2 m-8 primary-dark">
                 <h2 className="text-xl bold"> {props.name} </h2>
                 <p className="mt-3"> {props.description} </p>
             </a>
@@ -49,7 +49,7 @@ const GitHubProject = (props: repoData): React.JSX.Element => {
     } 
 
     return (
-        <a href={props.url} className="w-1/4 p-2 m-8 bg-gradient-to-bl from-green-600 to-teal-400 via-lime-400 hover:bg-orange-500">
+        <a href={props.url} className="w-1/4 p-2 m-8 primary-dark">
             <h2 className="text-xl bold mb-2"> {props.name} </h2>
             <p className="text-sm"> Most of this project is written in <em> {props.language} </em> </p>
             <p className="mt-3"> {props.description} </p>
@@ -75,7 +75,7 @@ const GithubProjectsSection = () => {
 
     return (
         <div className="p-10">
-            <h4 className = "text-5xl font-bold mb-10 mt-20"> Github Projects</h4>
+            <h4 className = "titleClass mt-20"> Github Projects</h4>
             <p className="text-xl mb-20"> A live update of my current GitHub repository projects. Click on any of them, and you will be taken directly to the repository. </p>
             {githubProjectList}
         </div>

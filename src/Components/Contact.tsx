@@ -14,9 +14,7 @@ interface DatabaseData {
 
 const ContactComp = (props: Contact): React.JSX.Element => {
     return (
-        <div className="flex w-1/3 m-5 justify-center">
-            <a className= "mx-auto" href={props.link}> {props.name} </a>
-        </div>
+        <a className="flex relative w-1/6 m-5 p-2 rounded-xl justify-center border-solid border-slate-600 border-4 contact-button overflow-hidden hover:border-sky-300" href={props.link}> {props.name} </a>
     );
 }
 
@@ -34,8 +32,8 @@ const ContactSection = ({contactReference}: DatabaseData): React.JSX.Element => 
 
     return (
         <div className="p-5">
-            <h2 className="text-6xl mb-5"> Contact Information </h2>
-            <p className="text-xl mb-10"> Feel free to contact me or view my work and activities on any of the links below! </p>
+            <h2 className="titleClass"> Contact Information </h2>
+            <p className="text-xl -mt-10 mb-10"> Feel free to contact me or view my work and activities on any of the links below! </p>
             { contactData }
         </div>
     );

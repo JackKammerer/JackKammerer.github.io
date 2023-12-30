@@ -22,7 +22,7 @@ const Project = (props: SpecialProjects): React.JSX.Element => {
 
     if (!props.githubRepo) {
         return (
-            <div className="flex flex-wrap align-middle bg-gradient-to-tr my-8 p-5 from-sky-400 to-indigo-700 via-blue-500">
+            <div className="flex flex-wrap align-middle my-20 p-5 primary-dark">
                 <div className="w-1/2"> 
                     <h2 className="text-4xl font-bold mb-1"> { props.name } </h2>
                     <ul className="flex flex-wrap mb-5 list-none">
@@ -37,7 +37,7 @@ const Project = (props: SpecialProjects): React.JSX.Element => {
         );   
     } else {
         return (
-            <div className="flex flex-wrap align-middle bg-gradient-to-tr my-8 p-5 from-sky-400 to-indigo-700 via-blue-500">
+            <a href={props.githubRepo} className="flex flex-wrap align-middle my-20 p-5 primary-dark">
                 <div className="w-1/2"> 
                     <h2 className="text-4xl font-bold mb-1"> { props.name } </h2>
                     <ul className="flex flex-wrap mb-5 list-none">
@@ -48,7 +48,7 @@ const Project = (props: SpecialProjects): React.JSX.Element => {
                 <div className="w-1/4 m-auto items-center">
                     <img src={props.imageLink} />
                 </div>                
-            </div>
+            </a>
         );
     }
 }
@@ -67,11 +67,10 @@ const ProjectsSection = ({projectReference} : DatabaseData): React.JSX.Element =
     }, []);
 
     return (
-        <div className="p-10">
-            <h2 className = "titleClass"> Past Projects </h2>
+        <div className="flex flex-wrap p-10 justify-center">
+            <h2 className = "titleClass mx-48"> Highlighted Projects </h2>
 
-            <h4 className = "text-5xl font-bold mb-10"> Highlighted Projects </h4>
-            <p className="text-xl mb-20"> Some personal, highlighted projects that I have worked on. </p>
+            <p className="text-2xl"> Highlighted projects that display my best skills. </p>
             {projectData}
         </div>
     );

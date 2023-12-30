@@ -11,8 +11,10 @@ import GithubProjectsSection from '@/Components/GithubProjects'
 import ToolsSection from '@/Components/Tools'
 import React from "react"
 
+
 import { FirebaseApp, initializeApp } from "firebase/app";
 import { getDatabase, ref, Database, DatabaseReference } from "firebase/database";
+import { getStorage, StorageReference, FirebaseStorage } from "firebase/storage";
 
 export default function Home() {
   const firebaseConfig: any = {
@@ -27,6 +29,7 @@ export default function Home() {
 
   const app: FirebaseApp = initializeApp(firebaseConfig);
   const db: Database = getDatabase(app); 
+  const storage: FirebaseStorage = getStorage(app);
 
   const schoolDataReference: DatabaseReference = ref(db, 'schoolData');
   const workDataReference: DatabaseReference = ref(db, 'workData');
@@ -34,26 +37,27 @@ export default function Home() {
   const achievementDataReference: DatabaseReference = ref(db, 'achievementData');
   const toolDataReference: DatabaseReference = ref(db, 'toolData');
   const contactDataReference: DatabaseReference = ref(db, 'contactData');
-  
+
+
 
   return (
-    <div className=" flex flex-wrap justify-center">
+    <div>
       <Navbar />
 
       <div id="introduction" className="pt-40">
         <section>
           <IntroductionSection />
         </section>
-        <section id="school" className="bg-gradient-to-b from-purple-700 to-yellow-400 via-red-600 w-11/12 ml-auto mr-auto mb-20">
+        <section id="school" className="secondary-back w-full ml-auto mr-auto mb-20">
           <SchoolSection schoolReference={schoolDataReference}/>
         </section>
-        <section id="work" className="bg-gradient-to-br from-black to-gray-600 via-gray-800 w-11/12 ml-auto mr-auto mb-20 text-white">
+        <section id="work" className="w-full ml-auto mr-auto mb-20">
           <WorkSection workReference={workDataReference} />
         </section>
-        <section id="projects" className="bg-gradient-to-r from-green-600 to-purple-700 via-blue-400 w-11/12 ml-auto mr-auto mb-20">
+        <section id="projects" className="secondary-back w-full ml-auto mr-auto mb-20">
           <ProjectsSection projectReference={projectDataReference}/>
         </section>
-        <section className="bg-gradient-to-r from-green-600 to-purple-700 via-blue-400 w-11/12 ml-auto mr-auto mb-20" >
+        <section className="w-full ml-auto mr-auto mb-20" >
           <GithubProjectsSection />
         </section>
         <section className="w-11/12 ml-auto mr-auto mb-20">
@@ -62,11 +66,10 @@ export default function Home() {
         <section id="achievements" className="w-11/12 ml-auto mr-auto mb-20">
           <AchievementsSection achievementReference={achievementDataReference}/>
         </section>
-        <section id="contact" className="w-11/12 ml-auto mr-auto mb-20">
+        <section id="contact" className="secondary-back w-full">
           <ContactSection contactReference={contactDataReference}/>
         </section>        
       </div>
-
     </div>
   )
 }
