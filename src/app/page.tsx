@@ -14,7 +14,7 @@ import React from "react"
 
 import { FirebaseApp, initializeApp } from "firebase/app";
 import { getDatabase, ref, Database, DatabaseReference } from "firebase/database";
-import { getStorage, StorageReference, FirebaseStorage } from "firebase/storage";
+import { getStorage, FirebaseStorage } from "firebase/storage";
 
 export default function Home() {
   const firebaseConfig: any = {
@@ -38,6 +38,10 @@ export default function Home() {
   const toolDataReference: DatabaseReference = ref(db, 'toolData');
   const contactDataReference: DatabaseReference = ref(db, 'contactData');
 
+  const schoolImageReference: DatabaseReference = ref(db, 'schoolImages');
+  const leftAchievementImagesReference: DatabaseReference = ref(db, 'leftAchievementImages');
+  const rightAchievementImagesReference: DatabaseReference = ref(db, 'rightAchievementImages');
+
 
 
   return (
@@ -49,25 +53,25 @@ export default function Home() {
           <IntroductionSection />
         </section>
         <section id="school" className="secondary-back w-full ml-auto mr-auto mb-20">
-          <SchoolSection schoolReference={schoolDataReference}/>
+          <SchoolSection schoolReference={schoolDataReference} imagesList={schoolImageReference} imageData={storage}/>
+        </section>
+        <section id="achievements" className="w-full ml-auto mr-auto mb-20">
+          <AchievementsSection achievementReference={achievementDataReference} imagesListLeft={leftAchievementImagesReference} imagesListRight={rightAchievementImagesReference} imageData={storage}/>
         </section>
         <section id="work" className="w-full ml-auto mr-auto mb-20">
           <WorkSection workReference={workDataReference} />
         </section>
         <section id="projects" className="secondary-back w-full ml-auto mr-auto mb-20">
-          <ProjectsSection projectReference={projectDataReference}/>
+          <ProjectsSection projectReference={projectDataReference} imageDatabase={storage}/>
         </section>
         <section className="w-full ml-auto mr-auto mb-20" >
           <GithubProjectsSection />
         </section>
-        <section className="w-11/12 ml-auto mr-auto mb-20">
+        <section id="tools" className="w-11/12 ml-auto mr-auto mb-20">
           <ToolsSection toolReference={toolDataReference}/>
         </section>
-        <section id="achievements" className="w-11/12 ml-auto mr-auto mb-20">
-          <AchievementsSection achievementReference={achievementDataReference}/>
-        </section>
         <section id="contact" className="secondary-back w-full">
-          <ContactSection contactReference={contactDataReference}/>
+          <ContactSection contactReference={contactDataReference} imageDatabase={storage}/>
         </section>        
       </div>
     </div>

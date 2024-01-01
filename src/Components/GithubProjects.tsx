@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { Octokit } from "octokit";
+import LoadingElement from "@/Components/Loading";
 
 
 interface repoData {
@@ -39,26 +40,22 @@ async function getRepos(): Promise<Array<repoData>>  {
 
 
 const GitHubProject = (props: repoData): React.JSX.Element => {
-    if (!props.language) {
-        return (
-            <a href={props.url} className="w-1/4 p-2 m-8 primary-dark">
-                <h2 className="text-xl bold"> {props.name} </h2>
-                <p className="mt-3"> {props.description} </p>
-            </a>
-        );  
-    } 
-
     return (
-        <a href={props.url} className="w-1/4 p-2 m-8 primary-dark">
+        <a href={props.url} className="w-1/4 p-2 m-8 primary-dark relative overflow-hidden githubProject z-10">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+
             <h2 className="text-xl bold mb-2"> {props.name} </h2>
-            <p className="text-sm"> Most of this project is written in <em> {props.language} </em> </p>
+            {props.language ? <p className="text-sm"> Most of this project is written in <em> {props.language} </em> </p> : ""}
             <p className="mt-3"> {props.description} </p>
         </a>
     );
 }
 
 const GithubProjectsSection = () => {
-    const [githubProjectList, setProjectList] = useState<React.JSX.Element>( <section> Loading... </section>);
+    const [githubProjectList, setProjectList] = useState<React.JSX.Element>( <LoadingElement /> );
     useEffect(() => {
         async function createGithubSection() {
             const githubProject: Array<repoData> = await getRepos(); 
@@ -67,14 +64,14 @@ const GithubProjectsSection = () => {
                 (element: repoData, pos:number) => <GitHubProject key={pos} {...element} />
             );
 
-            setProjectList( <section className="flex flex-wrap justify-center"> {projectDataItems} </section>)
+            setProjectList( <section className="flex flex-wrap justify-center -z-20"> {projectDataItems} </section>)
         }
 
         createGithubSection();
     }, []);
 
     return (
-        <div className="p-10">
+        <div className="p-10 -z-30">
             <h4 className = "titleClass mt-20"> Github Projects</h4>
             <p className="text-xl mb-20"> A live update of my current GitHub repository projects. Click on any of them, and you will be taken directly to the repository. </p>
             {githubProjectList}

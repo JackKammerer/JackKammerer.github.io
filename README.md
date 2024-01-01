@@ -34,3 +34,14 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+
+
+
+## Attributions:
+
+IBM PCjr 4863 Computer-Freepoly.org from Freepoly.org at https://sketchfab.com/3d-models/ibm-pcjr-4863-computer-freepolyorg-1c3c3cd0643d44d49a1771048da74c62
+
+VR Headset Free Model from Vitamin at https://sketchfab.com/3d-models/vr-headset-free-model-51b8dbff65e247979f068914f6197909 
+
+Calculator from Powerbyte7 at https://sketchfab.com/3d-models/calculator-d9ffbc4bbe1044bb902e1dddac52b0de 

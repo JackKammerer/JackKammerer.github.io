@@ -2,6 +2,11 @@
 
 import React, { useState, useEffect} from "react"
 import { onValue, DatabaseReference } from "firebase/database";
+import { Canvas } from "@react-three/fiber";
+import { OrbitControls } from "@react-three/drei";
+import Calculator from "@/Components/Calculator";
+import Headset from "@/Components/Headset";
+import Computer from "@/Components/Computer";
 
 interface WorkExperience {
     position: string;
@@ -13,6 +18,35 @@ interface WorkExperience {
 interface DatabaseData {
     workReference: DatabaseReference;
 }
+
+const Models = (): React.JSX.Element => { 
+    return (
+        <>
+            <Canvas className="w-1/2 h-1/2">
+                <OrbitControls />
+                <ambientLight />
+                <pointLight position={[10, 10, 10]} />
+                <Calculator />
+            </Canvas>
+            <Canvas className="w-1/2 h-1/2">
+                <OrbitControls />
+                <ambientLight />
+                <pointLight position={[10, 10, 10]} />
+                <Headset />
+                <mesh>
+                    <sphereGeometry args={[0.5, 16, 16]} />
+                    <meshStandardMaterial color="white" />
+                </mesh>
+            </Canvas>
+            <Canvas className="w-1/2 h-1/2">
+                <OrbitControls />
+                <ambientLight />
+                <pointLight position={[10, 10, 10]} />
+                <Computer />
+            </Canvas>
+        </>
+    );
+};
 
 const Work = ( data: WorkExperience ): React.JSX.Element => {
     let detailsElements: Array<React.JSX.Element> = data.details.map((element: string, pos: number) => <li key={pos}> {element} </li>);
@@ -50,6 +84,7 @@ const WorkSection = ({workReference}: DatabaseData): React.JSX.Element => {
         <div className="p-10">
             <h1 className="titleClass"> Work Experience </h1>
             { workData }
+            <Models />
         </div>
     );
 }

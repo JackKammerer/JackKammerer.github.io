@@ -55,20 +55,120 @@ ul {
   background-color: #1c2740
 }
 
-.contact-button::before {
-  content: "";
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  background-image: url("https://lthub.ubc.ca/files/2021/06/GitHub-Logo.png");
-  background-size: contain;
-  background-repeat: repeat-x;
-  background-color: #264af4;
-  top: 0;
-  left: -100%;
-  transition: left 125ms ease;
+.contact-button {
+  background-image: radial-gradient(circle at center, #ffffff, transparent);
+  display: flex;
+  justify-content: center;
 }
 
-.contact-button:hover::before {
+.side-margin:nth-child(odd) {
+  margin-left: auto;
+  margin-right: 0%;
+}
+
+.side-margin:nth-child(even) {
+  margin-left: 0%;
+  margin-right: auto;
+}
+
+.fixed-height {
+  height: 85rem;
+  margin-bottom: -15rem;
+}
+
+.githubProject:hover {
+  background: #2196f3;
+  color: black;
+  box-shadow: 0 0 2rem #2196f3, 0 0 2rem #2196f3, 0 0 8rem #2196f3;
+  transition-delay: 0.5s;
+}
+
+.githubProject span {
+  position: absolute;
+  display: block;
+}
+
+.githubProject span:nth-child(1) {
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, #2196f3);
+}
+
+.githubProject:hover span:nth-child(1) {
+  left: 100%;
+  transition: 0.5s;
+}
+
+
+.githubProject span:nth-child(3) {
+  bottom: 0;
+  right: -100%;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(270deg, transparent, #2196f3);
+}
+
+.githubProject:hover span:nth-child(3) {
+  right: 100%;
+  transition: 0.5s;
+  transition-delay: 0.25s;
+}
+
+.githubProject span:nth-child(2) {
+  top: -100%;
+  right: 0;
+  height: 100%;
+  width: 4px;
+  background: linear-gradient(180deg, transparent, #2196f3);
+}
+
+.githubProject:hover span:nth-child(2) {
+  top: 100%;
+  transition: 0.5s;
+  transition-delay: 0.125s;
+}
+
+.githubProject span:nth-child(4) {
+  bottom: -100%;
   left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(0deg, transparent, #2196f3);
+}
+
+.githubProject:hover span:nth-child(4) {
+  bottom: 100%;
+  transition: 0.5s;
+  transition-delay: 0.375s;
+}
+
+.hidden-image-right {
+  opacity: 0;
+  filter: blur(5px);
+  transform: translateX(100%) rotate(-12deg);
+  transition: all 1s;
+  transition-delay: 0.5s;
+}
+
+.shown-image-right {
+  opacity: 1;
+  filter: blur(0px);
+  transform: translateX(0%) rotate(-12deg);
+}
+
+
+.hidden-image-left {
+  opacity: 0;
+  filter: blur(5px);
+  transform: translateX(-100%) rotate(12deg);
+  transition: all 1s;
+  transition-delay: 0.5s;
+}
+
+.shown-image-left {
+  opacity: 1;
+  filter: blur(0px);
+  transform: translateX(0%) rotate(12deg);
 }
