@@ -30,7 +30,7 @@ type GLTFResult = GLTF & {
 type ContextType = Record<string, React.ForwardRefExoticComponent<JSX.IntrinsicElements['mesh']>>
 
 export default function Chair(props: JSX.IntrinsicElements['group']) {
-  const { nodes, materials } = useGLTF('/chair2/scene.gltf') as GLTFResult
+  const { nodes, materials } = useGLTF('/models/chair2/scene.gltf') as GLTFResult
   return (
     <group {...props} dispose={null} scale={10}>
       <group rotation={[-Math.PI / 2, 0, 0]}>
@@ -43,4 +43,4 @@ export default function Chair(props: JSX.IntrinsicElements['group']) {
   )
 }
 
-useGLTF.preload('/chair2/scene.gltf')
+useGLTF.preload('/models/chair2/scene.gltf')

@@ -8,9 +8,10 @@ Title: Pencil
 */
 
 import * as THREE from 'three'
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import { useGLTF } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
+import { useFrame } from '@react-three/fiber'
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -24,9 +25,32 @@ type GLTFResult = GLTF & {
 type ContextType = Record<string, React.ForwardRefExoticComponent<JSX.IntrinsicElements['mesh']>>
 
 export default function Pencil(props: JSX.IntrinsicElements['group']) {
-  const { nodes, materials } = useGLTF('/pencil/scene.gltf') as GLTFResult
+  const { nodes, materials } = useGLTF('/models/pencil/scene.gltf') as GLTFResult
+  
+  const [theta, setTheta] = useState<number>(-1 * Math.PI / 2);
+  const [xRot, setXRot] = useState<number>(0);
+  const [yRot, setYRot] = useState<number>(0);
+  const [zRot, setZRot] = useState<number>(0);
+
+  const ref = useRef<any>(null);
+
+  useFrame(() => { 
+    setTheta(theta => theta + 0.01);
+
+    const x = 5 * Math.cos(theta);
+    const z = 5 * Math.sin(theta);
+
+    if (ref.current != null) {
+        ref.current.position.set(x, 0, z);
+        setZRot(zRot => zRot + 0.02);
+        setXRot(xRot => xRot + 0.02);
+        setYRot(yRot => yRot + 0.02);
+        ref.current.rotation.set(xRot, yRot, zRot);
+    }
+  }); 
+  
   return (
-    <group {...props} dispose={null} scale={5}>
+    <group ref={ref} {...props} dispose={null} scale={5}>
       <group rotation={[Math.PI / 2, -0.858, -Math.PI]} scale={0.44}>
         <mesh geometry={nodes.defaultMaterial.geometry} material={materials.Default} rotation={[Math.PI / 2, 0, 0]} />
       </group>
@@ -34,4 +58,4 @@ export default function Pencil(props: JSX.IntrinsicElements['group']) {
   )
 }
 
-useGLTF.preload('/pencil/scene.gltf')
+useGLTF.preload('/models/pencil/scene.gltf')

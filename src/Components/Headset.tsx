@@ -50,7 +50,7 @@ type GLTFResult = GLTF & {
 type ContextType = Record<string, React.ForwardRefExoticComponent<JSX.IntrinsicElements['mesh']>>
 
 export default function Headset(props: JSX.IntrinsicElements['group']) {
-  const { nodes, materials } = useGLTF('/headset/scene.gltf') as GLTFResult
+  const { nodes, materials } = useGLTF('/models/headset/scene.gltf') as GLTFResult
   return (
     <group {...props} dispose={null} scale={15}>
       <group rotation={[-Math.PI / 2, 0, 0]} scale={0.031}>
@@ -77,4 +77,4 @@ export default function Headset(props: JSX.IntrinsicElements['group']) {
   )
 }
 
-useGLTF.preload('/headset/scene.gltf')
+useGLTF.preload('/models/headset/scene.gltf')

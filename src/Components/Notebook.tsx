@@ -8,9 +8,10 @@ Title: Notebook
 */
 
 import * as THREE from 'three'
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import { useGLTF } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
+import { useFrame } from '@react-three/fiber'
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -29,9 +30,43 @@ type GLTFResult = GLTF & {
 type ContextType = Record<string, React.ForwardRefExoticComponent<JSX.IntrinsicElements['mesh']>>
 
 export default function Notebook(props: JSX.IntrinsicElements['group']) {
-  const { nodes, materials } = useGLTF('/notebook/scene.gltf') as GLTFResult
+  const { nodes, materials } = useGLTF('/models/notebook/scene.gltf') as GLTFResult
+  
+  const [back, setBack] = useState<boolean>(false);
+  const [theta, setTheta] = useState<number>(Math.PI);
+  const [xRot, setXRot] = useState<number>(0.5 * Math.PI);
+  const [zRot, setZRot] = useState<number>(0);
+
+  const ref = useRef<any>(null);
+
+  useFrame(() => { 
+    setTheta(theta => theta + 0.01);
+
+    const x = 5 * Math.cos(theta);
+    const z = 5 * Math.sin(theta);
+
+    if (ref.current != null) {
+        ref.current.position.set(x, 0, z);
+
+        if (back === true) {
+          setXRot(xRot => xRot - 0.01);
+        } else {
+          setXRot(xRot => xRot + 0.01);
+        }
+
+        if (xRot > 0.7 * Math.PI) {
+          setBack(true);
+        } else if (xRot < 0.25 * Math.PI) {
+          setBack(false);
+        }
+
+        setZRot(zRot => zRot + 0.03);
+        ref.current.rotation.set(xRot, 0, zRot);
+    }
+  });   
+  
   return (
-    <group {...props} dispose={null} rotation={[1, 0, 0]}>
+    <group ref={ref} {...props} dispose={null} rotation={[0.5*Math.PI, 0, 0]}>
       <group>
         <mesh geometry={nodes.Object_4.geometry} material={materials.Sheets} />
         <mesh geometry={nodes.Object_5.geometry} material={materials.Sheets} />
@@ -42,4 +77,4 @@ export default function Notebook(props: JSX.IntrinsicElements['group']) {
   )
 }
 
-useGLTF.preload('/notebook/scene.gltf')
+useGLTF.preload('/models/notebook/scene.gltf')

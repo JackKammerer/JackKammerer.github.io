@@ -8,9 +8,10 @@ Title: Calculator
 */
 
 import * as THREE from 'three'
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import { useGLTF } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
+import { useFrame } from '@react-three/fiber'
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -21,15 +22,40 @@ type GLTFResult = GLTF & {
   }
 }
 
+
+
 type ContextType = Record<string, React.ForwardRefExoticComponent<JSX.IntrinsicElements['mesh']>>
 
 export default function Calculator(props: JSX.IntrinsicElements['group']) {
-  const { nodes, materials } = useGLTF('/calculator/scene.gltf') as GLTFResult
+  const { nodes, materials } = useGLTF('/models/calculator/scene.gltf') as GLTFResult
+  
+  const [theta, setTheta] = useState<number>(0);
+  const [xRot, setXRot] = useState<number>(1.5);
+  const [zRot, setZRot] = useState<number>(0);
+
+
+  const ref = useRef<any>(null);
+
+
+  useFrame(() => { 
+    setTheta(theta => theta + 0.01);
+
+    const x = 5 * Math.cos(theta);
+    const z = 5 * Math.sin(theta);
+
+    if (ref.current != null) {
+        ref.current.position.set(x, 0, z);
+        setZRot(zRot => zRot + 0.03);
+        setXRot(xRot => xRot + 0.005);
+        ref.current.rotation.set(xRot, 0, zRot);
+    }
+  }); 
+  
   return (
-    <group {...props} dispose={null} rotation={[1.5, 0, 0]}>
+    <group ref={ref} {...props} dispose={null} rotation={[1.5, 0, 0]}>
       <mesh geometry={nodes.Object_2.geometry} material={materials.material_0} rotation={[-Math.PI / 2, 0, 0]} />
     </group>
   )
 }
 
-useGLTF.preload('/calculator/scene.gltf')
+useGLTF.preload('/models/calculator/scene.gltf')

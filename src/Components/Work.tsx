@@ -33,7 +33,7 @@ interface DatabaseData {
 const MathAnimatedCamera = (): React.JSX.Element => {
     const ref = useRef<PerspectiveCamera>(null);
     const set = useThree((state) => state.set);
-    const [theta, setTheta] = useState(0);
+    const [theta, setTheta] = useState<number>(0);
 
     useEffect(() => {
         if (ref.current != null) {
@@ -45,20 +45,9 @@ const MathAnimatedCamera = (): React.JSX.Element => {
             ref.current.updateMatrixWorld()
         }
     });
-    useFrame(() => { 
-        setTheta(theta => theta + 0.01);
-
-        const x = 15 * Math.cos(theta);
-        const z = 15 * Math.sin(theta);
-
-        if (ref.current != null) {
-            ref.current.position.set(x, 0, z);
-            ref.current.lookAt(0, 0, 0);
-        }
-    }); 
 
     return (
-        <perspectiveCamera ref={ref} fov={75} aspect={window.innerWidth/window.innerHeight} near={0.1} far={1000} position={[0, 0, 10]}/>
+        <perspectiveCamera ref={ref} fov={75} aspect={window.innerWidth/window.innerHeight} near={0.1} far={1000} position={[0, 5, 20]}/>
     );
 };
 
@@ -81,7 +70,7 @@ const VRAnimatedCamera = (): React.JSX.Element => {
     });
 
     return (
-        <perspectiveCamera ref={ref} fov={75} aspect={window.innerWidth/window.innerHeight} near={0.1} far={1000} position={[0, 5, -10]}/>
+        <perspectiveCamera ref={ref} fov={75} aspect={window.innerWidth/window.innerHeight} near={0.1} far={1000} position={[0, 4, -12]}/>
     );
 };
 
@@ -137,24 +126,28 @@ const Models = (): React.JSX.Element => {
         <div className="w-1/2 flex flex-wrap justify-center">
             <Canvas style={{width: '30rem', height:'30rem'}}>
                 <ambientLight />
+                <MathAnimatedCamera />
+                < OrbitControls enableZoom={false} enablePan={false}/>
                 <pointLight position={[10, 10, 10]} />
                 <Calculator position={[0, 0, 5]}/>
                 <Pencil position={[5, 0, 0]} />
                 <Eraser position={[-5, 0, 0]}/>
                 <Notebook position={[0, 1, -5]}/>
-                <MathAnimatedCamera />
             </Canvas>
             <Canvas style={{width: '30rem', height:'30rem'}}>
                 <VRAnimatedCamera />
+                <OrbitControls enableZoom={false} enablePan={false}/>
                 <ambientLight />
                 <pointLight position={[10, 10, 10]} intensity={3}/>
                 <Headset />
-                <Controller position={[-2, 0, 2]} rotation={[0, 1, 0]} />
-                <Controller position={[2, 0, 2]} rotation={[0, 1.5, 0]}/>
+                <Controller position={[-2, 0, 2]} rotation={[0, 0.5 * Math.PI, 0]} />
+                <Controller position={[2, 0, 2]} rotation={[0, 0.5 * Math.PI, 0]}/>
                 <Plane args={[100, 100]} position={[0, 0, -20]} material-color={'#1ecbe1'} />
-                <Plane args={[100, 100]} position={[-20, 0, 0]} rotation={[0, 1.5, 0]} material-color={'#1ecbe1'} />
-                <Plane args={[100, 100]} position={[0, 0, 20]} rotation={[0, -3, 0]} material-color={'#1ecbe1'} />
-                <Plane args={[100, 100]} position={[20, 0, 0]} rotation={[0, -1.5, 0]} material-color={'#1ecbe1'} />
+                <Plane args={[100, 100]} position={[-20, 0, 0]} rotation={[0, 0.5 * Math.PI, 0]} material-color={'#1ecbe1'} />
+                <Plane args={[100, 100]} position={[0, 0, 20]} rotation={[0, -1 * Math.PI, 0]} material-color={'#1ecbe1'} />
+                <Plane args={[100, 100]} position={[20, 0, 0]} rotation={[0, -0.5 * Math.PI, 0]} material-color={'#1ecbe1'} />
+                <Plane args={[100, 100]} position={[0, -20, 0]} rotation={[-0.5 * Math.PI, 0, 0]} material-color={'#1ecbe1'} />
+                <Plane args={[100, 100]} position={[0, 20, 0]} rotation={[0.5 * Math.PI, 0, 0]} material-color={'#1ecbe1'} />
             </Canvas>
             <Canvas style={{width: '30rem', height:'30rem'}}>
                 <SecurityAnimatedCamera />
@@ -166,9 +159,10 @@ const Models = (): React.JSX.Element => {
                 <Desk position={[0, -1.2, 0]}/>
                 <Chair position={[0, -10.2, 5.8]} rotation={[0, 3.2, 0]}/>
                 <Plane args={[100, 100]} position={[0, 0, -20]} material-color={'#1ecbe1'} />
-                <Plane args={[100, 100]} position={[-20, 0, 0]} rotation={[0, 1.5, 0]} material-color={'#1ecbe1'} />
-                <Plane args={[100, 100]} position={[0, 0, 20]} rotation={[0, -3, 0]} material-color={'#1ecbe1'} />
-                <Plane args={[100, 100]} position={[20, 0, 0]} rotation={[0, -1.5, 0]} material-color={'#1ecbe1'} />
+                <Plane args={[100, 100]} position={[-20, 0, 0]} rotation={[0, 0.5 * Math.PI, 0]} material-color={'#1ecbe1'} />
+                <Plane args={[100, 100]} position={[0, 0, 20]} rotation={[0, -1 * Math.PI, 0]} material-color={'#1ecbe1'} />
+                <Plane args={[100, 100]} position={[20, 0, 0]} rotation={[0, -0.5 * Math.PI, 0]} material-color={'#1ecbe1'} />
+                <Plane args={[100, 100]} position={[0, -20, 0]} rotation={[-0.5 * Math.PI, 0, 0]} material-color={'#1ecbe1'} />
             </Canvas>
         </div>
     );
