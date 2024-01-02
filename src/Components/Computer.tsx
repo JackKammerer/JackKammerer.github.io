@@ -38,8 +38,8 @@ type ContextType = Record<string, React.ForwardRefExoticComponent<JSX.IntrinsicE
 export default function Computer(props: JSX.IntrinsicElements['group']) {
   const { nodes, materials } = useGLTF('/computer/scene.gltf') as GLTFResult
   return (
-    <group {...props} dispose={null} scale={20}>
-      <group rotation={[-Math.PI / 2, 0, 0]} scale={0.001}>
+    <group {...props} dispose={null} scale={0.007}>
+      <group rotation={[-Math.PI / 2, 0, 0]}>
         <group rotation={[Math.PI / 2, 0, 0]}>
           <group rotation={[-Math.PI / 2, 0, 0]}>
             <mesh geometry={nodes.defaultMaterial.geometry} material={materials.default_1001} />
