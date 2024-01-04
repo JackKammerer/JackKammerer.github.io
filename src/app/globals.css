@@ -172,3 +172,24 @@ ul {
   filter: blur(0px);
   transform: translateX(0%) rotate(12deg);
 }
+
+
+.labeled-left::before {
+  content: attr('data-label');
+  position: relative;
+  text-align: center;
+  font-size: 1.5rem;
+  font-style: italic;
+  width: 5rem;
+  height: 5rem;
+  display: block;
+  left: -10rem;
+}
+
+.labeled-right::after {
+  content: attr(data-label);
+  position: relative;
+  text-wrap: wrap;
+  text-align: center;
+  font-size: 1.5rem;
+}

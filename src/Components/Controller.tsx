@@ -8,9 +8,16 @@ Title: Controller
 */
 
 import * as THREE from 'three'
-import React, { useRef } from 'react'
+import React, { use, useEffect, useRef, useState } from 'react'
 import { useGLTF } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
+import { useFrame } from '@react-three/fiber';
+
+interface ControllerProps {
+  position: [number, number, number];
+  rotation: [number, number, number];
+  order: number;
+}
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -31,10 +38,79 @@ type GLTFResult = GLTF & {
 
 type ContextType = Record<string, React.ForwardRefExoticComponent<JSX.IntrinsicElements['mesh']>>
 
-export default function Controller(props: JSX.IntrinsicElements['group']) {
+export default function Controller({ position, rotation, order }: ControllerProps) {
+
+  const [delay, setDelay] = useState<number>(0);
+  const [xPos, setXPos] = useState<number>(0);
+  const [yPos, setYPos] = useState<number>(0);
+  const [zPos, setZPos] = useState<number>(2);
+  const [stage, setStage] = useState<number>(0);
+
+  const ref = useRef<any>(null);
+
+  useEffect(() => {
+    if (order === 2) {
+      setDelay(90);
+      setXPos(2);
+    } else {
+      setXPos(-2);
+    }
+  }, [])
+
+  useFrame(() => {
+    if (ref.current != null) {
+      if (delay > 0) {
+        setDelay(delay - 1);
+        return;
+      }
+  
+      if (stage === 0) {
+        if (yPos < 6) {
+          setYPos(yPos => yPos + 0.03);
+          setZPos(zPos => zPos + 0.01);
+          if (order === 2) {
+            setXPos(xPos => xPos + 0.01);
+          } else {
+            setXPos(xPos => xPos - 0.01);
+          }
+        } else {
+          setStage(1);
+        }
+      } else if (stage === 1) {
+        if (yPos > 0.5) {
+          setYPos(yPos => yPos - 0.03);
+        } else {
+          setStage(2);
+        } 
+      } else if (stage === 2) {
+        if (zPos > 2) {
+          setZPos(zPos => zPos - 0.01);
+          if (order === 2) {
+            setXPos(xPos => xPos - 0.01);
+          } else {
+            setXPos(xPos => xPos + 0.01);
+          }
+          setYPos(yPos => yPos - 0.0025);
+        } else {
+          if (order === 2) {
+            setXPos(2);
+          } else {
+            setXPos(-2);
+          }
+          setYPos(0);
+          setZPos(2);
+          setStage(0);
+        }
+      }
+
+      ref.current.position.set(xPos, yPos, zPos);
+    }
+  });
+
+
   const { nodes, materials } = useGLTF('/models/controller/scene.gltf') as GLTFResult
   return (
-    <group {...props} dispose={null}>
+    <group ref={ref} position={position} rotation={rotation} dispose={null}>
       <group rotation={[-Math.PI / 2, 0, 0]} scale={0.72}>
         <mesh geometry={nodes.Object_2.geometry} material={materials.Default_OBJ} />
         <mesh geometry={nodes.Object_3.geometry} material={materials.Default_OBJ} />

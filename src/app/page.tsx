@@ -9,12 +9,13 @@ import ContactSection from '@/Components/Contact'
 import IntroductionSection from '@/Components/Introduction'
 import GithubProjectsSection from '@/Components/GithubProjects'
 import ToolsSection from '@/Components/Tools'
-import React from "react"
+import React, { useEffect } from "react"
 
 
 import { FirebaseApp, initializeApp } from "firebase/app";
 import { getDatabase, ref, Database, DatabaseReference } from "firebase/database";
 import { getStorage, FirebaseStorage } from "firebase/storage";
+import { getAuth, signInAnonymously } from "firebase/auth";
 
 export default function Home() {
   const firebaseConfig: any = {
@@ -42,7 +43,14 @@ export default function Home() {
   const leftAchievementImagesReference: DatabaseReference = ref(db, 'leftAchievementImages');
   const rightAchievementImagesReference: DatabaseReference = ref(db, 'rightAchievementImages');
 
-
+  useEffect(() => {
+    signInAnonymously(getAuth())
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode, errorMessage);
+    });
+  })
 
   return (
     <div>

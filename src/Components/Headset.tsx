@@ -8,9 +8,10 @@ Title: Oculus Quest VR Headset
 */
 
 import * as THREE from 'three'
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import { useGLTF } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
+import { useFrame } from '@react-three/fiber'
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -51,8 +52,78 @@ type ContextType = Record<string, React.ForwardRefExoticComponent<JSX.IntrinsicE
 
 export default function Headset(props: JSX.IntrinsicElements['group']) {
   const { nodes, materials } = useGLTF('/models/headset/scene.gltf') as GLTFResult
+    
+  const [xRot, setXRot] = useState<number>(0);
+  const [yRot, setYRot] = useState<number>(0);
+
+  const [back, setBack] = useState<boolean>(false);
+
+  const [fullMotion, setFullMotion] = useState<boolean>(false);
+  const [rotationType, setRotationType] = useState<string>("y");
+
+  const [delay, setDelay] = useState<number>(0);
+
+
+  const ref = useRef<any>(null);
+
+
+  useFrame(() => { 
+    if (ref.current != null) {
+
+      if (delay > 0) {
+        setDelay(delay => delay - 1);
+        return;
+      }
+      
+      if (rotationType == "y" && yRot >= 0.25 * Math.PI) {
+        setBack(true);
+      } 
+      
+      if (rotationType === "y" && yRot <= -0.25 * Math.PI) {
+        setBack(false);
+        setFullMotion(true);
+      }
+
+      if (rotationType === "x" && xRot >= 0.25 * Math.PI) {
+        setBack(true);
+      } else if (rotationType === "x" && xRot <= -0.25 * Math.PI) {
+        setBack(false);
+        setFullMotion(true);
+      }
+
+      if (rotationType === "y" && fullMotion && yRot >= -0.01 && yRot <= 0.01) {
+        setRotationType("x");
+        setFullMotion(false);
+        setYRot(0);
+      } else if (rotationType === "x" && fullMotion && xRot >= -0.01 && xRot <= 0.01) {
+        setRotationType("y");
+        setFullMotion(false);
+        setDelay(60);
+        setXRot(0);
+      }
+
+      if (rotationType === "y" && !back) {
+        setYRot(yRot => yRot + 0.005);  
+      } 
+      
+      if (rotationType === "y" && back) {
+        setYRot(yRot => yRot - 0.005);
+      }
+
+      if (rotationType === "x" && !back) {
+        setXRot(xRot => xRot + 0.005);
+      } else if (rotationType === "x" && back) {
+        setXRot(xRot => xRot - 0.005);
+      }
+
+
+      ref.current.rotation.set(xRot, yRot, 0);
+
+    }
+  });
+  
   return (
-    <group {...props} dispose={null} scale={15}>
+    <group ref={ref} {...props} dispose={null} scale={15}>
       <group rotation={[-Math.PI / 2, 0, 0]} scale={0.031}>
         <group rotation={[Math.PI / 2, 0, 0]}>
           <group position={[0, 0.305, -1.413]} rotation={[Math.PI / 2, 0, 0]}>

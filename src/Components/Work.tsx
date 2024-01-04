@@ -33,7 +33,6 @@ interface DatabaseData {
 const MathAnimatedCamera = (): React.JSX.Element => {
     const ref = useRef<PerspectiveCamera>(null);
     const set = useThree((state) => state.set);
-    const [theta, setTheta] = useState<number>(0);
 
     useEffect(() => {
         if (ref.current != null) {
@@ -55,7 +54,6 @@ const MathAnimatedCamera = (): React.JSX.Element => {
 const VRAnimatedCamera = (): React.JSX.Element => {
     const ref = useRef<PerspectiveCamera>(null);
     const set = useThree((state) => state.set);
-    const [theta, setTheta] = useState(0);
 
     useEffect(() => {
         if (ref.current != null) {
@@ -70,7 +68,7 @@ const VRAnimatedCamera = (): React.JSX.Element => {
     });
 
     return (
-        <perspectiveCamera ref={ref} fov={75} aspect={window.innerWidth/window.innerHeight} near={0.1} far={1000} position={[0, 4, -12]}/>
+        <perspectiveCamera ref={ref} fov={75} aspect={window.innerWidth/window.innerHeight} near={0.1} far={1000} position={[0, -2, -10]}/>
     );
 };
 
@@ -98,8 +96,9 @@ const SecurityAnimatedCamera = (): React.JSX.Element => {
         const z = radius * Math.sin(theta);
 
         if (ref.current != null) {
-            if (theta >= 2 * Math.PI) {
+            if (theta >= 2.5 * Math.PI) {
                 setTheta(theta - 2 * Math.PI);
+                setYValue(0);
             }
             
             if (theta < 0.5 * Math.PI || theta >= 1.5 * Math.PI) {
@@ -123,8 +122,13 @@ const SecurityAnimatedCamera = (): React.JSX.Element => {
 
 const Models = (): React.JSX.Element => { 
     return (
-        <div className="w-1/2 flex flex-wrap justify-center">
-            <Canvas style={{width: '30rem', height:'30rem'}}>
+        <div className="w-1/2 flex flex-wrap justify-center ml-5">
+            <div className="w-1/3 my-auto ml-10 text-gray-500">
+                <div className="italic">You can click and drag on the box to get a better view of the 3D objects!</div>
+                <i className="fa-solid fa-arrow-turn-up rotate-90 text-3xl ml-1 mt-3"></i>
+            </div>
+            <div></div>
+            <Canvas className='side-margin mt-8' style={{width: '29rem', height:'26rem', border:'solid 4px gray'}}>
                 <ambientLight />
                 <MathAnimatedCamera />
                 < OrbitControls enableZoom={false} enablePan={false}/>
@@ -134,14 +138,14 @@ const Models = (): React.JSX.Element => {
                 <Eraser position={[-5, 0, 0]}/>
                 <Notebook position={[0, 1, -5]}/>
             </Canvas>
-            <Canvas style={{width: '30rem', height:'30rem'}}>
+            <Canvas className='side-margin mt-8' style={{width: '29rem', height:'26rem', border:'solid 4px gray'}}>
                 <VRAnimatedCamera />
                 <OrbitControls enableZoom={false} enablePan={false}/>
                 <ambientLight />
                 <pointLight position={[10, 10, 10]} intensity={3}/>
                 <Headset />
-                <Controller position={[-2, 0, 2]} rotation={[0, 0.5 * Math.PI, 0]} />
-                <Controller position={[2, 0, 2]} rotation={[0, 0.5 * Math.PI, 0]}/>
+                <Controller order={1} position={[-2, 0, 2]} rotation={[0, 0.5 * Math.PI, 0]} />
+                <Controller order={2} position={[2, 0, 2]} rotation={[0, 0.5 * Math.PI, 0]}/>
                 <Plane args={[100, 100]} position={[0, 0, -20]} material-color={'#1ecbe1'} />
                 <Plane args={[100, 100]} position={[-20, 0, 0]} rotation={[0, 0.5 * Math.PI, 0]} material-color={'#1ecbe1'} />
                 <Plane args={[100, 100]} position={[0, 0, 20]} rotation={[0, -1 * Math.PI, 0]} material-color={'#1ecbe1'} />
@@ -149,7 +153,12 @@ const Models = (): React.JSX.Element => {
                 <Plane args={[100, 100]} position={[0, -20, 0]} rotation={[-0.5 * Math.PI, 0, 0]} material-color={'#1ecbe1'} />
                 <Plane args={[100, 100]} position={[0, 20, 0]} rotation={[0.5 * Math.PI, 0, 0]} material-color={'#1ecbe1'} />
             </Canvas>
-            <Canvas style={{width: '30rem', height:'30rem'}}>
+            <div className="w-1/3 my-auto mr-10 text-gray-500">
+                <div className="italic">You can click and drag on the box to get a better view of the 3D objects!</div>
+                <i className="fa-solid fa-arrow-turn-down rotate-90 text-3xl mr-1 mt-3"></i>
+            </div>
+            <div></div>
+            <Canvas className='side-margin mt-8' style={{width: '29rem', height:'26rem', border:'solid 4px gray'}}>
                 <SecurityAnimatedCamera />
                 <ambientLight intensity={3}/>
                 <pointLight position={[10, 10, 10]} />
