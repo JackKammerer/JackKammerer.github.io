@@ -29,15 +29,18 @@ const ContactComp = ({contact, imageBase}: ContactCompInputs ): React.JSX.Elemen
     useEffect(()=> {
         async function getImageURL(referenceValue: StorageReference) {
             let url:string = await getDownloadURL(referenceValue);
-            setImageData(<img className="h-full" src={url}></img>);
+            setImageData(<img className="h-full z-20" src={url}></img>);
         }
         getImageURL(imageRef);
     }, []);
     
     return (
-        <a data-content={contact.name} className="flex relative w-1/6 h-16 m-5 p-2 rounded-xl justify-center border-solid border-slate-600 border-4 contact-button hover:border-sky-300 after:bg-blue-700 after:w-full after:h-24 after:text-white after:absolute after:top-0 after:left-0 after:content-[attr(data-content)] after:transition-all duration-125 after:translate-y-full after:hover:translate-y-0 overflow-hidden after:flex after:justify-center after:object-center after:py-4" href={contact.link}>
-            {imageData}
-        </a>
+        <div className="flex flex-wrap relative w-1/6 m-5 justify-center contact-class">
+            <span className="absolute mx-auto bg-sky-300 text-slate-600 p-2 rounded-3xl pointer-events-none before:content-[''] before:w-5 before:h-5 before:transform before:rotate-45 before:absolute before:-bottom-2 before:right-1/2 before:-z-10 before:bg-sky-300 opacity-0"> {contact.name} </span>
+            <a className="flex relative w-full h-16 p-2 rounded-xl justify-center border-solid border-slate-600 border-4 contact-button hover:border-sky-300 after:bg-blue-700 after:w-full after:h-24 after:text-white after:absolute after:top-0 after:left-0 after:content-[''] after:transition-all duration-125 after:translate-y-full after:hover:translate-y-0 after:flex after:justify-center after:object-center after:py-4 after:z-10 overflow-hidden" href={contact.link}>
+                {imageData}
+            </a>
+        </div>
     );
 }
 

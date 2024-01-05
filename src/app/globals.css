@@ -44,7 +44,7 @@ ul {
 }
 
 .titleClass {
-  @apply text-8xl font-bold mb-20
+  @apply text-8xl font-bold mb-12
 }
 
 .secondary-back {
@@ -79,7 +79,7 @@ ul {
 .githubProject:hover {
   background: #2196f3;
   color: black;
-  box-shadow: 0 0 2rem #2196f3, 0 0 2rem #2196f3, 0 0 8rem #2196f3;
+  box-shadow: 0 0 1rem #2196f3, 0 0 1rem #2196f3, 0 0 1rem #2196f3;
   transition-delay: 0.5s;
 }
 
@@ -192,4 +192,49 @@ ul {
   text-wrap: wrap;
   text-align: center;
   font-size: 1.5rem;
+}
+
+
+.project-link:hover {
+  box-shadow: 0 0 1rem #2196f3, 0 0 1rem #2196f3, 0 0 1rem #2c38dd;
+}
+
+.project-link::after {
+  content: '';
+  position: absolute;
+  background: linear-gradient(90deg, transparent, #2196f3);
+  width: 60%;
+  height: 100%;
+  top: 0;
+  right: 0;
+  transform: translateX(100%);
+}
+
+.project-link:hover::after {
+  transform: translateX(0%);
+  transition: 0.5s;
+  transition-delay: 0.05s;
+}
+
+
+.contact-class:hover span {
+  transform: translateY(-140%);
+  transition: 0.4s;
+  transition-delay: 0.25s;
+  opacity: 100%;
+}
+
+.terminal-style {
+  font-family: 'Roboto Mono', sans-serif;
+  font-weight: 400;
+  font-size: 1.6rem;
+}
+
+.navbar {
+  font-family: 'Ubuntu', sans-serif;
+  font-weight: 400;
+}
+
+.top-val {
+  top: -2.2rem;
 }

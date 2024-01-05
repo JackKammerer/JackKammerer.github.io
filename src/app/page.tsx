@@ -66,14 +66,14 @@ export default function Home() {
         <section id="achievements" className="w-full ml-auto mr-auto mb-20">
           <AchievementsSection achievementReference={achievementDataReference} imagesListLeft={leftAchievementImagesReference} imagesListRight={rightAchievementImagesReference} imageData={storage}/>
         </section>
-        <section id="work" className="w-full ml-auto mr-auto mb-20">
+        <section id="work" className="secondary-back w-full ml-auto mr-auto mb-20">
           <WorkSection workReference={workDataReference} />
-        </section>
-        <section id="projects" className="secondary-back w-full ml-auto mr-auto mb-20">
-          <ProjectsSection projectReference={projectDataReference} imageDatabase={storage}/>
         </section>
         <section className="w-full ml-auto mr-auto mb-20" >
           <GithubProjectsSection />
+        </section>        
+        <section id="projects" className="secondary-back w-full ml-auto mr-auto mb-20">
+          <ProjectsSection projectReference={projectDataReference} imageDatabase={storage}/>
         </section>
         <section id="tools" className="w-11/12 ml-auto mr-auto mb-20">
           <ToolsSection toolReference={toolDataReference}/>

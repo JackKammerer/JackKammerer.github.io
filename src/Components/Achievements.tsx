@@ -110,7 +110,7 @@ const AchievementsSection = ({achievementReference, imagesListLeft, imagesListRi
 
     return (
         <div className="p-5 flex justify-center flex-wrap">
-            <h2 className="text-6xl mb-10"> Academic and Profesional Accomplishments </h2>
+            <h2 className="text-6xl mb-10"> Academic and Professional Accomplishments </h2>
             <div className="flex flex-wrap justify-center object-center">
                 <section className="w-1/4 flex justify-center flex-wrap">
                     { leftImages }

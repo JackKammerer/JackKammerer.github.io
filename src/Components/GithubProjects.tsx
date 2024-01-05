@@ -41,7 +41,7 @@ async function getRepos(): Promise<Array<repoData>>  {
 
 const GitHubProject = (props: repoData): React.JSX.Element => {
     return (
-        <a href={props.url} className="w-1/4 p-2 m-8 primary-dark relative overflow-hidden githubProject z-10">
+        <a href={props.url} className="w-1/4 p-2 m-8 primary-dark relative overflow-hidden githubProject">
             <span></span>
             <span></span>
             <span></span>
@@ -64,15 +64,15 @@ const GithubProjectsSection = () => {
                 (element: repoData, pos:number) => <GitHubProject key={pos} {...element} />
             );
 
-            setProjectList( <section className="flex flex-wrap justify-center -z-20"> {projectDataItems} </section>)
+            setProjectList( <section className="flex flex-wrap justify-center"> {projectDataItems} </section>)
         }
 
         createGithubSection();
     }, []);
 
     return (
-        <div className="p-10 -z-30">
-            <h4 className = "titleClass mt-20"> Github Projects</h4>
+        <div className="p-10 flex flex-wrap justify-center">
+            <h4 className = "text-6xl mx-auto mb-16 text-center w-2/3"> Github Projects</h4>
             <p className="text-xl mb-20"> A live update of my current GitHub repository projects. Click on any of them, and you will be taken directly to the repository. </p>
             {githubProjectList}
         </div>

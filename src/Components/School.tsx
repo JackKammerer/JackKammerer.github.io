@@ -74,7 +74,7 @@ const SchoolSection = ({schoolReference, imagesList, imageData}: DatabaseData): 
     return (
         <div className="p-10">
             <h1 className="titleClass"> School Experience </h1>
-            <div className="flex flex-wrap">
+            <div className="flex flex-wrap mb-20">
                 {schoolData}
                 {schoolImages}
             </div>

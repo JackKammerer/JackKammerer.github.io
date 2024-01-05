@@ -30,7 +30,7 @@ const TypingWindow = (): React.JSX.Element => {
     }, []);
 
     return (
-        <div ref={el} className="whitespace-pre inline text-white text-4xl"/>
+        <div ref={el} className="whitespace-pre inline text-white"/>
     );
 
 }
@@ -48,12 +48,13 @@ const ToolsSection = ({toolReference}: DatabaseData) => {
     }, []);
     
     return (
-        <div className="p-5">
+        <div className="p-5 flex flex-wrap justify-center">
             <h2 className="text-6xl mb-10"> Languages, Frameworks, and Other Tools </h2>
+            <p className="text-xl"> A list of the tools, frameworks, and programming languages I have used and learned in the past.</p>
             <div className="flex flex-wrap object-center justify-center">
-                <div className="w-1/2 h-64 bg-black p-10 flex border-solid border-slate-500 border-8 my-16 relative -z-10">
-                    <div className="text-lime-600 relative -top-10 -left-8 flex flex-wrap w-5 text-4xl"> 1 2 3 4 5 6 </div>
-                    <div className="text-lime-600 absolute top-0 left-16 text-4xl z-20"> //Hello World</div>       
+                <div className="terminal-style w-1/2 h-64 bg-black p-8 flex border-solid border-slate-500 border-8 my-16 relative -z-10">
+                    <div className="text-lime-600 relative top-val -left-4 flex flex-col w-2 h-15"> 1 2 3 4 5 6 </div>
+                    <div className="text-lime-600 absolute -top-1 left-14 z-20 font-medium"> //Hello World</div>       
                     <TypingWindow />
                 </div>
                 { toolData } 

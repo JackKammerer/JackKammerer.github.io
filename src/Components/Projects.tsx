@@ -49,7 +49,7 @@ const Project = ({project, imageBase}: ProjectInput): React.JSX.Element => {
                 </ul>
                 <p> { project.description } </p>                
             </div>
-            <div className="w-1/4 m-auto items-center">
+            <div className="w-1/4 m-auto items-center z-10">
                 {imageData}
             </div>
         </> 
@@ -57,7 +57,7 @@ const Project = ({project, imageBase}: ProjectInput): React.JSX.Element => {
 
     return (
         <> 
-            {project.githubRepo ? <a href={project.githubRepo} className="flex flex-wrap align-middle my-20 p-5 primary-dark"> {content} </a> : <div className="flex flex-wrap align-middle my-20 p-5 primary-dark"> {content} </div>} 
+            {project.githubRepo ? <a href={project.githubRepo} className="flex flex-wrap relative overflow-hidden align-middle my-20 p-5 primary-dark project-link"> {content} </a> : <a href="#projects" className="flex flex-wrap relative overflow-hidden align-middle my-20 p-5 primary-dark project-link"> {content} </a>} 
         </>
     );
 }

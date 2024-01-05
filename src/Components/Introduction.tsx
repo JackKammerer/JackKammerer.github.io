@@ -20,7 +20,7 @@ const Box = (): React.JSX.Element => {
 const IntroductionSection = (): React.JSX.Element => {
     return (
         <div className = "flex flex-wrap h-screen-90 m-5 items-center justify-center">
-            <div className="justify-left w-full">
+            <div className="justify-center flex flex-wrap w-full">
                 <h3 className = "text-4xl mb-10"> Hello! My name is <strong>Jack Kammerer</strong>. I am a <strong>Computer Science Student</strong> at <strong>Oregon State University</strong>. </h3>
                 <h5 className = "text-2xl"> This is my portfolio website to demonstrate my knowledge and skills. Keep reading to learn more! </h5>                
             </div>
