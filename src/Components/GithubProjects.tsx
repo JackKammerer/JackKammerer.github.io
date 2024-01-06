@@ -1,8 +1,5 @@
-"use client";
-
-import React, { useEffect, useState } from "react";
+import React, { use } from "react";
 import { Octokit } from "octokit";
-import LoadingElement from "@/Components/Loading";
 
 
 interface repoData {
@@ -54,21 +51,19 @@ const GitHubProject = (props: repoData): React.JSX.Element => {
     );
 }
 
+async function createGithubSection(): Promise<React.JSX.Element> {
+    const githubProject: Array<repoData> = await getRepos(); 
+
+    let projectDataItems: Array<React.JSX.Element> = githubProject.map(
+        (element: repoData, pos:number) => <GitHubProject key={pos} {...element} />
+    );
+
+    return ( <section className="flex flex-wrap justify-center"> {projectDataItems} </section>)
+}
+
+
 const GithubProjectsSection = () => {
-    const [githubProjectList, setProjectList] = useState<React.JSX.Element>( <LoadingElement /> );
-    useEffect(() => {
-        async function createGithubSection() {
-            const githubProject: Array<repoData> = await getRepos(); 
-
-            let projectDataItems: Array<React.JSX.Element> = githubProject.map(
-                (element: repoData, pos:number) => <GitHubProject key={pos} {...element} />
-            );
-
-            setProjectList( <section className="flex flex-wrap justify-center"> {projectDataItems} </section>)
-        }
-
-        createGithubSection();
-    }, []);
+    const githubProjectList = use(createGithubSection());
 
     return (
         <div className="p-10 flex flex-wrap justify-center">

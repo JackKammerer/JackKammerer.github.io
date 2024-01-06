@@ -1,11 +1,8 @@
-'use client';
-
-import React, { useState, useEffect} from "react";
-import LoadingElement from "@/Components/Loading";
+import React, { use } from "react";
 import { onValue, DatabaseReference } from "firebase/database";
 import { FirebaseStorage, ref, StorageReference, getDownloadURL } from "firebase/storage";
 
-
+//A typescript interface that defines the data needed for every school in the list.
 interface SchoolExperience {
     name: string;
     dates: string;
@@ -18,6 +15,11 @@ interface DatabaseData {
     imagesList: DatabaseReference;
     imageData: FirebaseStorage;
 }
+
+interface SchoolProps {
+    schoolData: React.JSX.Element;
+    imageData: React.JSX.Element;
+};
 
 
 const School = ( data: SchoolExperience ): React.JSX.Element => {
@@ -50,40 +52,57 @@ async function getImageURL(referenceValue: StorageReference, key: number): Promi
 }
 
 
+
+
+
+async function getSchoolData({schoolReference, imagesList, imageData}: DatabaseData): Promise<SchoolProps> {
+
+    let schoolData: React.JSX.Element = <></>;
+    let imagesData: React.JSX.Element = <></>;
+
+    await Promise.all([
+        new Promise<void>((resolve, reject) => {
+            onValue(schoolReference, (snapshot) => {
+                let dataList: Array<SchoolExperience> = Object.values(snapshot.val());
+                let schoolList: Array<React.JSX.Element> = dataList.map((element: SchoolExperience, pos: number) => <School key={pos} {...element} />);
+                schoolData = <ul className="w-1/2 list-none"> {schoolList} </ul>;
+                resolve();
+            }, reject);
+        }),
+        new Promise<void>((resolve, reject) => {
+            onValue(imagesList, (snapshot) => {
+                let imageList: Array<string> = Object.values(snapshot.val());
+                let imageRef: Array<StorageReference> = imageList.map((element: string) => ref(imageData, element));
+                Promise.all(imageRef.map((element: StorageReference, pos: number) => getImageURL(element, pos)))
+                .then((result) => {
+                    imagesData = <div className="ml-auto -mr-10 w-1/2 p-4 fixed-height"> {result} </div>;
+                    resolve();
+                })
+            }, reject);
+        })        
+    ])
+
+    return {
+        schoolData: schoolData,
+        imageData: imagesData
+    };
+}
+
+
 const SchoolSection = ({schoolReference, imagesList, imageData}: DatabaseData): React.JSX.Element => {
 
-    const [schoolData, setSchoolData] = useState<React.JSX.Element>( <LoadingElement />);
-    const [schoolImages, setSchoolImages] = useState<React.JSX.Element>( <LoadingElement />);
 
-    useEffect(() => {
-        onValue(schoolReference, (snapshot) => {
-            let dataList: Array<SchoolExperience> = Object.values(snapshot.val());
-            let schoolList: Array<React.JSX.Element> = dataList.map((element: SchoolExperience, pos: number) => <School key={pos} {...element} />);
-            setSchoolData(<ul className="w-1/2 list-none"> {schoolList} </ul>);
-        });
-        onValue(imagesList, (snapshot) => {
-            let imageList: Array<string> = Object.values(snapshot.val());
-            let imageRef: Array<StorageReference> = imageList.map((element: string) => ref(imageData, element));
-            Promise.all(imageRef.map((element: StorageReference, pos: number) => getImageURL(element, pos)))
-                .then((result) => {
-                    setSchoolImages(<div className="ml-auto -mr-10 w-1/2 p-4 fixed-height"> {result} </div>);
-                });
-        });
-    }, []);
+    const schoolProps: SchoolProps = use(getSchoolData({schoolReference, imagesList, imageData}));
     
     return (
         <div className="p-10">
             <h1 className="titleClass"> School Experience </h1>
             <div className="flex flex-wrap mb-20">
-                {schoolData}
-                {schoolImages}
+                {schoolProps.schoolData}
+                {schoolProps.imageData}
             </div>
         </div>
     );
 }
-
-/*const Element = async (): Promise<React.JSX.Element> => {
-    return (<div> Hello </div>);
-} */
 
 export default SchoolSection;

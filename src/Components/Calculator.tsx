@@ -6,6 +6,7 @@ License: CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
 Source: https://sketchfab.com/3d-models/calculator-d9ffbc4bbe1044bb902e1dddac52b0de
 Title: Calculator
 */
+'use client';
 
 import * as THREE from 'three'
 import React, { useRef, useState } from 'react'
@@ -29,7 +30,7 @@ type ContextType = Record<string, React.ForwardRefExoticComponent<JSX.IntrinsicE
 export default function Calculator(props: JSX.IntrinsicElements['group']) {
   const { nodes, materials } = useGLTF('/models/calculator/scene.gltf') as GLTFResult
   
-  const [theta, setTheta] = useState<number>(0);
+/*  const [theta, setTheta] = useState<number>(0);
   const [xRot, setXRot] = useState<number>(1.5);
   const [zRot, setZRot] = useState<number>(0);
 
@@ -38,21 +39,27 @@ export default function Calculator(props: JSX.IntrinsicElements['group']) {
 
 
   useFrame(() => { 
-    setTheta(theta => theta + 0.01);
+    if (ref.current) {
+      setTheta(theta => theta + 0.01);
 
-    const x = 5 * Math.cos(theta);
-    const z = 5 * Math.sin(theta);
-
-    if (ref.current != null) {
-        ref.current.position.set(x, 0, z);
+      if (ref.current.position) {
+          const x = 5 * Math.cos(theta);
+          const z = 5 * Math.sin(theta);
+          ref.current.position.set(x, 0, z);
+      }
+          
+      if (ref.current.rotation) {
         setZRot(zRot => zRot + 0.03);
         setXRot(xRot => xRot + 0.005);
-        ref.current.rotation.set(xRot, 0, zRot);
+        ref.current.rotation.set(xRot, 0, zRot)
+      }      
+    } else {
+      return;
     }
-  }); 
+  });  */
   
   return (
-    <group ref={ref} {...props} dispose={null} rotation={[1.5, 0, 0]}>
+    <group {...props} dispose={null} rotation={[1.5, 0, 0]}>
       <mesh geometry={nodes.Object_2.geometry} material={materials.material_0} rotation={[-Math.PI / 2, 0, 0]} />
     </group>
   )

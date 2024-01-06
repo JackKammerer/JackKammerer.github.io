@@ -7,6 +7,8 @@ Source: https://sketchfab.com/3d-models/notebook-b0ee64ec4a504764ab07eb93a1076fe
 Title: Notebook
 */
 
+'use client';
+
 import * as THREE from 'three'
 import React, { useRef, useState } from 'react'
 import { useGLTF } from '@react-three/drei'
@@ -32,7 +34,7 @@ type ContextType = Record<string, React.ForwardRefExoticComponent<JSX.IntrinsicE
 export default function Notebook(props: JSX.IntrinsicElements['group']) {
   const { nodes, materials } = useGLTF('/models/notebook/scene.gltf') as GLTFResult
   
-  const [back, setBack] = useState<boolean>(false);
+/*  const [back, setBack] = useState<boolean>(false);
   const [theta, setTheta] = useState<number>(Math.PI);
   const [xRot, setXRot] = useState<number>(0.5 * Math.PI);
   const [zRot, setZRot] = useState<number>(0);
@@ -63,10 +65,10 @@ export default function Notebook(props: JSX.IntrinsicElements['group']) {
         setZRot(zRot => zRot + 0.03);
         ref.current.rotation.set(xRot, 0, zRot);
     }
-  });   
+  }); */
   
   return (
-    <group ref={ref} {...props} dispose={null} rotation={[0.5*Math.PI, 0, 0]}>
+    <group {...props} dispose={null} rotation={[0.5*Math.PI, 0, 0]}>
       <group>
         <mesh geometry={nodes.Object_4.geometry} material={materials.Sheets} />
         <mesh geometry={nodes.Object_5.geometry} material={materials.Sheets} />

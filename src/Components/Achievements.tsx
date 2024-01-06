@@ -1,72 +1,101 @@
 'use client';
 
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect, use} from "react";
 import { onValue, DatabaseReference } from "firebase/database";
 import { FirebaseStorage, ref, StorageReference, getDownloadURL } from "firebase/storage";
-import LoadingElement from "@/Components/Loading";
+import { achievementDataReference,
+        imagesListLeft,
+        imagesListRight,
+        storage } from "@/app/firebase";
 
 interface DatabaseData {
-    achievementReference: DatabaseReference;
+    achievementDataReference: DatabaseReference;
     imagesListLeft: DatabaseReference;
     imagesListRight: DatabaseReference;
-    imageData: FirebaseStorage;
+    storage: FirebaseStorage;
 };
 
+interface AchievementProps {
+    achievementData: React.JSX.Element;
+    leftImages: Array<React.JSX.Element>;
+    rightImages: Array<React.JSX.Element>;
+    leftRefs: Array<React.RefObject<HTMLImageElement>>;
+    rightRefs: Array<React.RefObject<HTMLImageElement>>;
+};
 
-const AchievementsSection = ({achievementReference, imagesListLeft, imagesListRight, imageData}: DatabaseData): React.JSX.Element => {
-    const [achievementData, setAchievementData] = useState<React.JSX.Element>( <LoadingElement />);
-    const [leftImages, setleftImages] = useState<Array<React.JSX.Element>>( []);
-    const [rightImages, setrightImages] = useState<Array<React.JSX.Element>>( []);
+async function getAchievementData({achievementDataReference, imagesListLeft, imagesListRight, storage}: DatabaseData): Promise<AchievementProps> {
+    let achievementData: React.JSX.Element = <></>;
+    let leftImages: Array<React.JSX.Element> = [];
+    let rightImages: Array<React.JSX.Element> = [];
+    let leftRefs: Array<React.RefObject<HTMLImageElement>> = [];
+    let rightRefs: Array<React.RefObject<HTMLImageElement>> = [];
 
+    
+    await Promise.all ([
+        new Promise<void>((resolve, reject) => {
+            onValue(achievementDataReference, (snapshot) => {
+                let dataList: Array<string> = Object.values(snapshot.val());
+                let achievementList: Array<React.JSX.Element> = dataList.map((element: string, pos: number) => <li key={pos} className="my-10 w-3/4 text-center"> {element} </li>);
+                achievementData = <ul className="w-5/12 list-none flex justify-center align-center flex-wrap"> {achievementList} </ul>;
+                resolve();
+            }, reject);
+        }),
+        new Promise<void>((resolve, reject) => {
+            onValue(imagesListLeft, (snapshot) => { 
+                let dataList: Array<string> = Object.values(snapshot.val());
+                let imageList: Array<Promise<React.JSX.Element>> = dataList.map((element: string, pos: number) => {
+                    let imageReference: StorageReference = ref(storage, element);
+                    return (getDownloadURL(imageReference).then((url) => {
+                        let reactRef: React.RefObject<HTMLImageElement> = React.createRef<HTMLImageElement>();
+                        leftRefs.push(reactRef);
+                        return (
+                            <img key={pos} ref={reactRef} className="hidden-image-left h-1/4 -z-10 my-10 border-solid border-slate-400 border-4 side-margin bg-white" src={url}></img>
+                        );
+                    }));
+                });
+                Promise.all(imageList).then((values) => {
+                    leftImages = values;
+                    resolve();
+                });
+            }, reject);
+        }),
+        new Promise<void>((resolve, reject) => {
+            onValue(imagesListRight, (snapshot) => { 
+                let dataList: Array<string> = Object.values(snapshot.val());
+                let imageList: Array<Promise<React.JSX.Element>> = dataList.map((element: string, pos: number) => {
+                    let imageReference: StorageReference = ref(storage, element);
+                    return (getDownloadURL(imageReference).then((url) => {
+                        let reactRef: React.RefObject<HTMLImageElement> = React.createRef<HTMLImageElement>();
+                        rightRefs.push(reactRef);
+                        return (
+                            <img key={pos} ref={reactRef} className="hidden-image-right h-1/4 -z-10 my-10 border-solid border-slate-400 border-4 side-margin bg-white" src={url}></img>
+                        );
+                    }));
+                });
+                Promise.all(imageList).then((values) => {
+                    rightImages = values;
+                    resolve();
+                });
+            }, reject);
+        })
+    ])
 
-    const [leftRefs, setLeftRefs] = useState<Array<React.RefObject<HTMLImageElement>>>([]);
-    const [rightRefs, setRightRefs] = useState<Array<React.RefObject<HTMLImageElement>>>([]);
+    return {
+        achievementData: achievementData,
+        leftImages: leftImages,
+        rightImages: rightImages,
+        leftRefs: leftRefs,
+        rightRefs: rightRefs
+    };
+}
 
-    useEffect(() => {
-        onValue(achievementReference, (snapshot) => {
-            let dataList: Array<string> = Object.values(snapshot.val());
-            let achievementList: Array<React.JSX.Element> = dataList.map((element: string, pos: number) => <li key={pos} className="my-10 w-3/4 text-center"> {element} </li>);
-            setAchievementData(<ul className="w-5/12 list-none flex justify-center align-center flex-wrap"> {achievementList} </ul>);
-        });
+const AchievementsSection = (): React.JSX.Element => {
+    
+    const achievementProps = use(getAchievementData({achievementDataReference, imagesListLeft, imagesListRight, storage}));
 
-        onValue(imagesListLeft, (snapshot) => { 
-            let refList: Array<React.RefObject<HTMLImageElement>> = [];
-            let dataList: Array<string> = Object.values(snapshot.val());
-            let imageList: Array<Promise<React.JSX.Element>> = dataList.map((element: string, pos: number) => {
-                let imageReference: StorageReference = ref(imageData, element);
-                return (getDownloadURL(imageReference).then((url) => {
-                    let reactRef: React.RefObject<HTMLImageElement> = React.createRef<HTMLImageElement>();
-                    refList.push(reactRef);
-                    return (
-                        <img key={pos} ref={reactRef} className="hidden-image-left h-1/4 -z-10 my-10 border-solid border-slate-400 border-4 side-margin bg-white" src={url}></img>
-                    );
-                }));
-            });
-            Promise.all(imageList).then((values) => {
-                setleftImages( values );
-                setLeftRefs(refList);
-            });
-        });
+    const [leftRefs, setLeftRefs] = useState<Array<React.RefObject<HTMLImageElement>>>(achievementProps.leftRefs);
+    const [rightRefs, setRightRefs] = useState<Array<React.RefObject<HTMLImageElement>>>(achievementProps.rightRefs);
 
-        onValue(imagesListRight, (snapshot) => { 
-            let refList: Array<React.RefObject<HTMLImageElement>> = [];
-            let dataList: Array<string> = Object.values(snapshot.val());
-            let imageList: Array<Promise<React.JSX.Element>> = dataList.map((element: string, pos: number) => {
-                let imageReference: StorageReference = ref(imageData, element);
-                return (getDownloadURL(imageReference).then((url) => {
-                    let reactRef: React.RefObject<HTMLImageElement> = React.createRef<HTMLImageElement>();
-                    refList.push(reactRef);
-                    return (
-                        <img key={pos} ref={reactRef} className="hidden-image-right h-1/4 -z-10 my-10 border-solid border-slate-400 border-4 side-margin bg-white" src={url}></img>
-                    );
-                }));
-            });
-            Promise.all(imageList).then((values) => {
-                setrightImages( values );
-                setRightRefs(refList);
-            });
-        });
-    }, []);
 
     useEffect(() => {
         const observer = new IntersectionObserver((entries) => {
@@ -113,11 +142,11 @@ const AchievementsSection = ({achievementReference, imagesListLeft, imagesListRi
             <h2 className="text-6xl mb-10"> Academic and Professional Accomplishments </h2>
             <div className="flex flex-wrap justify-center object-center">
                 <section className="w-1/4 flex justify-center flex-wrap">
-                    { leftImages }
+                    { achievementProps.leftImages }
                 </section>
-                { achievementData }
+                { achievementProps.achievementData }
                 <section className="w-1/4 flex justify-center flex-wrap">
-                    { rightImages }
+                    { achievementProps.rightImages }
                 </section>
             </div>
         </div>

@@ -1,57 +1,26 @@
-'use client';
-
-import Navbar from "@/Components/Navbar"
 import SchoolSection from "@/Components/School"
-import WorkSection from '@/Components/Work'
 import ProjectsSection from '@/Components/Projects'
-import AchievementsSection from '@/Components/Achievements'
 import ContactSection from '@/Components/Contact'
 import IntroductionSection from '@/Components/Introduction'
 import GithubProjectsSection from '@/Components/GithubProjects'
-import ToolsSection from '@/Components/Tools'
-import React, { useEffect } from "react"
+import React from "react"
 
+import dynamic from 'next/dynamic';
 
-import { FirebaseApp, initializeApp } from "firebase/app";
-import { getDatabase, ref, Database, DatabaseReference } from "firebase/database";
-import { getStorage, FirebaseStorage } from "firebase/storage";
-import { getAuth, signInAnonymously } from "firebase/auth";
+const Navbar = dynamic(() => import('@/Components/Navbar'), { ssr: false });
+const AchievementsSection = dynamic(() => import('@/Components/Achievements'), { ssr: false });
+const WorkSection = dynamic(() => import('@/Components/Work'), { ssr: false });
+const ToolsSection = dynamic(() => import('@/Components/Tools'), { ssr: false });
+
+import { schoolDataReference, 
+        projectDataReference, 
+        contactDataReference, 
+        schoolImageReference,
+        storage
+      } from "@/app/firebase";
+
 
 export default function Home() {
-  const firebaseConfig: any = {
-    apiKey: process.env.NEXT_PUBLIC_FIRE_API_KEY,
-    authDomain: process.env.NEXT_PUBLIC_AUTH_DOMAIN,
-    projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
-    storageBucket: process.env.NEXT_PUBLIC_STORAGE_BUCKET,
-    messagingSenderId: process.env.NEXT_PUBLIC_SENDER_ID,
-    appId: process.env.NEXT_PUBLIC_APP_ID,
-    databaseURL: process.env.NEXT_PUBLIC_DATA_URL
-  };
-
-  const app: FirebaseApp = initializeApp(firebaseConfig);
-  const db: Database = getDatabase(app); 
-  const storage: FirebaseStorage = getStorage(app);
-
-  const schoolDataReference: DatabaseReference = ref(db, 'schoolData');
-  const workDataReference: DatabaseReference = ref(db, 'workData');
-  const projectDataReference: DatabaseReference = ref(db, 'projectData');
-  const achievementDataReference: DatabaseReference = ref(db, 'achievementData');
-  const toolDataReference: DatabaseReference = ref(db, 'toolData');
-  const contactDataReference: DatabaseReference = ref(db, 'contactData');
-
-  const schoolImageReference: DatabaseReference = ref(db, 'schoolImages');
-  const leftAchievementImagesReference: DatabaseReference = ref(db, 'leftAchievementImages');
-  const rightAchievementImagesReference: DatabaseReference = ref(db, 'rightAchievementImages');
-
-  useEffect(() => {
-    signInAnonymously(getAuth())
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log(errorCode, errorMessage);
-    });
-  })
-
   return (
     <div>
       <Navbar />
@@ -59,15 +28,15 @@ export default function Home() {
       <div id="introduction" className="pt-40">
         <section>
           <IntroductionSection />
-        </section>
+        </section>  
         <section id="school" className="secondary-back w-full ml-auto mr-auto mb-20">
           <SchoolSection schoolReference={schoolDataReference} imagesList={schoolImageReference} imageData={storage}/>
         </section>
         <section id="achievements" className="w-full ml-auto mr-auto mb-20">
-          <AchievementsSection achievementReference={achievementDataReference} imagesListLeft={leftAchievementImagesReference} imagesListRight={rightAchievementImagesReference} imageData={storage}/>
+          <AchievementsSection/>
         </section>
         <section id="work" className="secondary-back w-full ml-auto mr-auto mb-20">
-          <WorkSection workReference={workDataReference} />
+          <WorkSection />
         </section>
         <section className="w-full ml-auto mr-auto mb-20" >
           <GithubProjectsSection />
@@ -76,11 +45,11 @@ export default function Home() {
           <ProjectsSection projectReference={projectDataReference} imageDatabase={storage}/>
         </section>
         <section id="tools" className="w-11/12 ml-auto mr-auto mb-20">
-          <ToolsSection toolReference={toolDataReference}/>
+          <ToolsSection />
         </section>
         <section id="contact" className="secondary-back w-full">
           <ContactSection contactReference={contactDataReference} imageDatabase={storage}/>
-        </section>        
+        </section>
       </div>
     </div>
   )

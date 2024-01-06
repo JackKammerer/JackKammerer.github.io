@@ -1,7 +1,4 @@
-'use client';
-
-import React, { useState, useEffect} from "react";
-import LoadingElement from "@/Components/Loading";
+import React, {use} from "react";
 import { onValue, DatabaseReference } from "firebase/database";
 import { StorageReference, ref, FirebaseStorage, getDownloadURL } from "firebase/storage";
 
@@ -21,18 +18,15 @@ interface DatabaseData {
     imageDatabase: FirebaseStorage;
 }
 
+async function getImageURL(referenceValue: StorageReference): Promise<React.JSX.Element> {
+    let url:string = await getDownloadURL(referenceValue);
+    return <img className="h-full z-20" src={url}></img>;
+}
 
 const ContactComp = ({contact, imageBase}: ContactCompInputs ): React.JSX.Element => {
     let imageRef: StorageReference = ref(imageBase, contact.image);
     
-    const [imageData, setImageData] = useState<React.JSX.Element>( <LoadingElement />)
-    useEffect(()=> {
-        async function getImageURL(referenceValue: StorageReference) {
-            let url:string = await getDownloadURL(referenceValue);
-            setImageData(<img className="h-full z-20" src={url}></img>);
-        }
-        getImageURL(imageRef);
-    }, []);
+    const imageData = use(getImageURL(imageRef));
     
     return (
         <div className="flex flex-wrap relative w-1/6 m-5 justify-center contact-class">
@@ -44,17 +38,23 @@ const ContactComp = ({contact, imageBase}: ContactCompInputs ): React.JSX.Elemen
     );
 }
 
-const ContactSection = ({contactReference, imageDatabase}: DatabaseData): React.JSX.Element => {
-    const [contactData, setContactData] = useState<React.JSX.Element>(<LoadingElement />);
-
-    useEffect(() => {
+async function contactProps({contactReference, imageDatabase}: DatabaseData): Promise<React.JSX.Element> {
+    let contactProp: React.JSX.Element = <></>;
+    
+    new Promise<void>((resolve, reject) => {
         onValue(contactReference, (snapshot) => {
             let dataList: Array<Contact> = Object.values(snapshot.val());
             let contactList: Array<React.JSX.Element> = dataList.map((element: Contact, pos: number) => <ContactComp key={pos} contact={element} imageBase={imageDatabase} />);
-            setContactData(<ul className="flex flex-wrap justify-center"> {contactList} </ul>);
-        });
-    }, []);
+            contactProp = <ul className="flex flex-wrap justify-center"> {contactList} </ul>;
+            resolve();
+        }, reject);
+    });
 
+    return contactProp;
+}
+
+const ContactSection = ({contactReference, imageDatabase}: DatabaseData): React.JSX.Element => {
+    const contactData = use(contactProps({contactReference, imageDatabase}));
 
     return (
         <div className="p-5">

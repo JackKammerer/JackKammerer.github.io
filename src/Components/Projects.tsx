@@ -1,9 +1,6 @@
-"use client";
-
-import React, { useEffect, useState } from "react";
+import React, { use } from "react";
 import { onValue, DatabaseReference } from "firebase/database";
 import { StorageReference, ref, FirebaseStorage, getDownloadURL } from "firebase/storage";
-import LoadingElement from "@/Components/Loading";
 
 interface SpecialProjects {
     name: string;
@@ -24,17 +21,16 @@ interface DatabaseData {
     imageDatabase: FirebaseStorage;
 }
 
+
+async function getImageURL(referenceValue: StorageReference): Promise<React.JSX.Element> {
+    let url:string = await getDownloadURL(referenceValue);
+    return (<img className="h-full" src={url}></img>);
+}
+
 const Project = ({project, imageBase}: ProjectInput): React.JSX.Element => {
     let imageRef: StorageReference = ref(imageBase, project.image);
 
-    const [imageData, setImageData] = useState<React.JSX.Element>( <LoadingElement />)
-    useEffect(()=> {
-        async function getImageURL(referenceValue: StorageReference) {
-            let url:string = await getDownloadURL(referenceValue);
-            setImageData(<img className="h-full" src={url}></img>);
-        }
-        getImageURL(imageRef);
-    }, []);
+    const imageData = use(getImageURL(imageRef));
 
     let tools: Array<React.JSX.Element> = project.toolsUsed.map(
         (element: string, pos: number) => <li key={pos} className="mx-2 text-sm italic"> #{ element } </li>
@@ -62,18 +58,23 @@ const Project = ({project, imageBase}: ProjectInput): React.JSX.Element => {
     );
 }
 
+async function projectProps({projectReference, imageDatabase}: DatabaseData): Promise<React.JSX.Element> { 
+    let projectData: React.JSX.Element = <></>;
 
-
-const ProjectsSection = ({projectReference, imageDatabase} : DatabaseData): React.JSX.Element => {    
-    const [projectData, setProjectData] = useState<React.JSX.Element>( <LoadingElement />);
-
-    useEffect(() => {
+    await new Promise<void>((resolve, reject) => {
         onValue(projectReference, (snapshot) => {
             let dataList: Array<SpecialProjects> = Object.values(snapshot.val());
             let projectList: Array<React.JSX.Element> = dataList.map((element: SpecialProjects, pos: number) => <Project key={pos} imageBase={imageDatabase} project={element} />);
-            setProjectData(<ul className="list-none"> {projectList} </ul>);
-        });
-    }, []);
+            projectData = <ul className="list-none"> {projectList} </ul>;
+            resolve();
+        }, reject);
+    });
+
+    return projectData;
+}
+
+const ProjectsSection = ({projectReference, imageDatabase} : DatabaseData): React.JSX.Element => {    
+    const projectData = use(projectProps({projectReference, imageDatabase}))
 
     return (
         <div className="flex flex-wrap p-10 justify-center">

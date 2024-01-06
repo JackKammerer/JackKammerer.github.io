@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useState, useEffect, useRef} from "react"
+import React, { useEffect, useRef, use} from "react"
 import { onValue, DatabaseReference } from "firebase/database";
 import Typed from "typed.js";
+import { toolDataReference } from "@/app/firebase";
 
 interface DatabaseData {
     toolReference: DatabaseReference;
@@ -35,17 +36,24 @@ const TypingWindow = (): React.JSX.Element => {
 
 }
 
-const ToolsSection = ({toolReference}: DatabaseData) => {
+async function getToolData({toolReference}: DatabaseData): Promise<React.JSX.Element> {
+    let toolData: React.JSX.Element = <></>;
 
-    const [toolData, setToolData] = useState<React.JSX.Element>( <section> Loading... </section>);
-
-    useEffect(() => {
+    await new Promise<void>((resolve, reject) => {
         onValue(toolReference, (snapshot) => {
             let dataList: Array<string> = Object.values(snapshot.val());
             let toolList: Array<React.JSX.Element> = dataList.map((element: string, pos: number) => <li key={pos} className="w-80 mx-1 my-3"> {element} </li>);
-            setToolData(<ul className="flex flex-wrap mb-10 w-full"> {toolList} </ul>);
-        });
-    }, []);
+            toolData = <ul className="flex flex-wrap mb-10 w-full"> {toolList} </ul>;
+            resolve();
+        }, reject);
+    });
+
+    return toolData;
+}
+
+const ToolsSection = () => {
+
+    const toolData = use(getToolData({toolReference: toolDataReference}));
     
     return (
         <div className="p-5 flex flex-wrap justify-center">

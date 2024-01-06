@@ -7,6 +7,8 @@ Source: https://sketchfab.com/3d-models/controller-5ba4ef24d6554dc9b34417f41b7b0
 Title: Controller
 */
 
+'use client';
+
 import * as THREE from 'three'
 import React, { use, useEffect, useRef, useState } from 'react'
 import { useGLTF } from '@react-three/drei'
