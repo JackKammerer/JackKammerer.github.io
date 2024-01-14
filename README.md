@@ -9,19 +9,20 @@ npm install
 Then, edit ```node_modules/@react-three/fiber/dist/react-three-fiber.esm.js``` so the ```connect``` section of the return JSON is wrapped in ```if (target != null) {}``` to prevent errors. The site will still work even without this change. 
 
 
-Setup the .env.local file to contain these variables. The first 8 are for Firebase, and the last is a storage bucket link.
+Setup the .env.local file to contain these variables. The first 7 are for Firebase, the 8th is a Github API key, and the last is a storage bucket link.
 
 
 ```bash
 
 NEXT_PUBLIC_FIRE_API_KEY
-NEXT_PUBLIC_GITHUB_API_KEY
 NEXT_PUBLIC_AUTH_DOMAIN
 NEXT_PUBLIC_PROJECT_ID
 NEXT_PUBLIC_STORAGE_BUCKET
 NEXT_PUBLIC_SENDER_ID
 NEXT_PUBLIC_APP_ID
 NEXT_PUBLIC_DATA_URL
+
+NEXT_PUBLIC_GITHUB_API_KEY
 
 NEXT_PUBLIC_BUCKET
 
