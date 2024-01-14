@@ -84,7 +84,8 @@ jobs:
           echo "NEXT_PUBLIC_APP_ID=${{ secrets.NEXT_PUBLIC_APP_ID }}" >> .env.local
           echo "NEXT_PUBLIC_DATA_URL=${{ secrets.NEXT_PUBLIC_DATA_URL }}" >> .env.local
           echo "NEXT_PUBLIC_BUCKET=${{ secrets.NEXT_PUBLIC_BUCKET }}" >> .env.local
-          echo "TestingVar = ${{ secrets.TestingVar }}"
+          echo "::set-output name=secretValue::${{ secrets.TestingVar }}"
+          echo "TestingVar = ${{ steps.setSecret.outputs.secretValue }}"
       - name: Build with Next.js
         run: ${{ steps.detect-package-manager.outputs.runner }} next build
       - name: Static HTML export with Next.js
