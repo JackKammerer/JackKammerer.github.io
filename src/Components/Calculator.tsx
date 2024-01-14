@@ -30,7 +30,7 @@ type ContextType = Record<string, React.ForwardRefExoticComponent<JSX.IntrinsicE
 export default function Calculator(props: JSX.IntrinsicElements['group']) {
   const { nodes, materials } = useGLTF('/models/calculator/scene.gltf') as GLTFResult
   
-/*  const [theta, setTheta] = useState<number>(0);
+  const [theta, setTheta] = useState<number>(0);
   const [xRot, setXRot] = useState<number>(1.5);
   const [zRot, setZRot] = useState<number>(0);
 
@@ -56,10 +56,10 @@ export default function Calculator(props: JSX.IntrinsicElements['group']) {
     } else {
       return;
     }
-  });  */
+  }); 
   
   return (
-    <group {...props} dispose={null} rotation={[1.5, 0, 0]}>
+    <group ref={ref} {...props} dispose={null} rotation={[1.5, 0, 0]}>
       <mesh geometry={nodes.Object_2.geometry} material={materials.material_0} rotation={[-Math.PI / 2, 0, 0]} />
     </group>
   )

@@ -1,6 +1,7 @@
 import React, { use } from "react";
 import { onValue, DatabaseReference } from "firebase/database";
 import { StorageReference, ref, FirebaseStorage, getDownloadURL } from "firebase/storage";
+import Image from 'next/image';
 
 interface SpecialProjects {
     name: string;
@@ -22,15 +23,15 @@ interface DatabaseData {
 }
 
 
-async function getImageURL(referenceValue: StorageReference): Promise<React.JSX.Element> {
+async function getImage(referenceValue: StorageReference): Promise<React.JSX.Element> {
     let url:string = await getDownloadURL(referenceValue);
-    return (<img className="h-full" src={url}></img>);
+    return (<img className="h-full" src={url} alt="" />);
 }
 
 const Project = ({project, imageBase}: ProjectInput): React.JSX.Element => {
     let imageRef: StorageReference = ref(imageBase, project.image);
 
-    const imageData = use(getImageURL(imageRef));
+    const imageData = use(getImage(imageRef));
 
     let tools: Array<React.JSX.Element> = project.toolsUsed.map(
         (element: string, pos: number) => <li key={pos} className="mx-2 text-sm italic"> #{ element } </li>

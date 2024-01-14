@@ -7,6 +7,7 @@ import { achievementDataReference,
         imagesListLeft,
         imagesListRight,
         storage } from "@/app/firebase";
+import Image from 'next/image';
 
 interface DatabaseData {
     achievementDataReference: DatabaseReference;
@@ -49,7 +50,7 @@ async function getAchievementData({achievementDataReference, imagesListLeft, ima
                         let reactRef: React.RefObject<HTMLImageElement> = React.createRef<HTMLImageElement>();
                         leftRefs.push(reactRef);
                         return (
-                            <img key={pos} ref={reactRef} className="hidden-image-left h-1/4 -z-10 my-10 border-solid border-slate-400 border-4 side-margin bg-white" src={url}></img>
+                            <img key={pos} ref={reactRef} className="hidden-image-left h-1/4 -z-10 my-10 border-solid border-slate-400 border-4 side-margin bg-white" src={url} alt=""/>
                         );
                     }));
                 });
@@ -68,7 +69,7 @@ async function getAchievementData({achievementDataReference, imagesListLeft, ima
                         let reactRef: React.RefObject<HTMLImageElement> = React.createRef<HTMLImageElement>();
                         rightRefs.push(reactRef);
                         return (
-                            <img key={pos} ref={reactRef} className="hidden-image-right h-1/4 -z-10 my-10 border-solid border-slate-400 border-4 side-margin bg-white" src={url}></img>
+                            <img key={pos} ref={reactRef} className="hidden-image-right h-1/4 -z-10 my-10 border-solid border-slate-400 border-4 side-margin bg-white" src={url} alt=""/>
                         );
                     }));
                 });

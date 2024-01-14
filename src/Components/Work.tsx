@@ -1,6 +1,6 @@
 'use client';
 
-import React, {use} from "react"
+import React, {use, useEffect, useState} from "react"
 import { onValue, DatabaseReference } from "firebase/database";
 import { workDataReference as workDataReference } from "@/app/firebase";
 import Models from "@/Components/Models";
@@ -55,14 +55,13 @@ async function workProps({workReference}: DatabaseData): Promise<React.JSX.Eleme
 }
 
 const WorkSection = (): React.JSX.Element => {
-    
-    const workData = use(workProps({workReference: workDataReference}));
+    const workInfo = use(workProps({workReference: workDataReference}));
 
     return (
         <div className="p-10">
             <h1 className="titleClass"> Work Experience </h1>
             <div className="flex">
-                { workData }
+                { workInfo }
                 < Models />
             </div>
         </div>

@@ -24,7 +24,7 @@ const MathAnimatedCamera = (): React.JSX.Element => {
         if (ref.current != null) {
             set({ camera: ref.current })
         } 
-    }, []);
+    });
     useFrame(() => {
         if (ref.current != null) {
             ref.current.updateMatrixWorld()
@@ -47,7 +47,7 @@ const VRAnimatedCamera = (): React.JSX.Element => {
             set({ camera: ref.current })
             ref.current.lookAt(0, 0, 0);
         } 
-    }, []);
+    });
     useFrame(() => {
         if (ref.current != null) {
             ref.current.updateMatrixWorld()
@@ -72,7 +72,7 @@ const SecurityAnimatedCamera = (): React.JSX.Element => {
         if (ref.current != null) {
             set({ camera: ref.current })
         } 
-    }, []);
+    });
     useFrame(() => {
         if (ref.current != null) {
             ref.current.updateMatrixWorld()
@@ -109,17 +109,8 @@ const SecurityAnimatedCamera = (): React.JSX.Element => {
     );
 };
 
-//<Pencil position={[5, 0, 0]} />
-
-//                <Headset />
-//<Notebook position={[-5, 0, 0]} />
-//<Controller order={1} position={[-2, 0, 2]} rotation={[0, 0.5 * Math.PI, 0]} />
-//<Controller order={2} position={[2, 0, 2]} rotation={[0, 0.5 * Math.PI, 0]}/>
-//                                 <Calculator position={[0, 0, 5]}/>
-               // <Pencil position={[5, 0, 0]} />
-// <Eraser position={[-5, 0, 0]}/>
-
 const Models = (): React.JSX.Element => { 
+        
     return (
         <div className="w-1/2 flex flex-wrap justify-center ml-5">
             <div className="w-1/3 my-auto ml-10 text-gray-500">
@@ -133,6 +124,7 @@ const Models = (): React.JSX.Element => {
                 <OrbitControls enableZoom={false} enablePan={false}/>
                 <pointLight position={[10, 10, 10]} />
                 <Pencil position={[5, 0, 0]} />
+                <Eraser position={[0, 0, -5]} />
                 <Calculator position={[0, 0, 5]}/>
                 <Notebook position={[-5, 0, 0]} />
             </Canvas>

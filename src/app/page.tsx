@@ -5,12 +5,14 @@ import IntroductionSection from '@/Components/Introduction'
 import GithubProjectsSection from '@/Components/GithubProjects'
 import React from "react"
 
+import LoadingElement from "@/Components/Loading"
+
 import dynamic from 'next/dynamic';
 
 const Navbar = dynamic(() => import('@/Components/Navbar'), { ssr: false });
-const AchievementsSection = dynamic(() => import('@/Components/Achievements'), { ssr: false });
-const WorkSection = dynamic(() => import('@/Components/Work'), { ssr: false });
-const ToolsSection = dynamic(() => import('@/Components/Tools'), { ssr: false });
+const AchievementsSection = dynamic(() => import('@/Components/Achievements'), { ssr: false, loading: () => <LoadingElement />  });
+const WorkSection = dynamic(() => import('@/Components/Work'), { ssr: false, loading: () => <LoadingElement /> });
+const ToolsSection = dynamic(() => import('@/Components/Tools'), { ssr: false, loading: () => <LoadingElement />  });
 
 import { schoolDataReference, 
         projectDataReference, 

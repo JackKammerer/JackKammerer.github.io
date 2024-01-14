@@ -1,6 +1,7 @@
 import React, { use } from "react";
 import { onValue, DatabaseReference } from "firebase/database";
 import { FirebaseStorage, ref, StorageReference, getDownloadURL } from "firebase/storage";
+import Image from 'next/image';
 
 //A typescript interface that defines the data needed for every school in the list.
 interface SchoolExperience {
@@ -46,7 +47,7 @@ const School = ( data: SchoolExperience ): React.JSX.Element => {
 async function getImageURL(referenceValue: StorageReference, key: number): Promise<React.JSX.Element> {
     return (getDownloadURL(referenceValue).then((url) => {
         return (
-            <img key={key} className="h-1/4 my-10 border-solid border-slate-400 border-4 side-margin" src={url}></img>
+            <img key={key} className="h-1/4 my-10 border-solid border-slate-400 border-4 side-margin" src={url} alt=""/>
         );
     }));
 }

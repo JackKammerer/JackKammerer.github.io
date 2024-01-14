@@ -57,7 +57,7 @@ export default function Controller({ position, rotation, order }: ControllerProp
     } else {
       setXPos(-2);
     }
-  }, [])
+  })
 
   useFrame(() => {
     if (ref.current != null) {

@@ -29,7 +29,7 @@ type ContextType = Record<string, React.ForwardRefExoticComponent<JSX.IntrinsicE
 export default function Pencil(props: JSX.IntrinsicElements['group']) {
   const { nodes, materials } = useGLTF('/models/pencil/scene.gltf') as GLTFResult
   
-/*  const [theta, setTheta] = useState<number>(-1 * Math.PI / 2);
+  const [theta, setTheta] = useState<number>(-1 * Math.PI / 2);
   const [xRot, setXRot] = useState<number>(0);
   const [yRot, setYRot] = useState<number>(0);
   const [zRot, setZRot] = useState<number>(0);
@@ -56,10 +56,10 @@ export default function Pencil(props: JSX.IntrinsicElements['group']) {
       return;
     }
 
-  });  */
+  });  
   
   return (
-    <group {...props} dispose={null} scale={5}>
+    <group ref={ref} {...props} dispose={null} scale={5}>
       <group rotation={[Math.PI / 2, -0.858, -Math.PI]} scale={0.44}>
         <mesh geometry={nodes.defaultMaterial.geometry} material={materials.Default} rotation={[Math.PI / 2, 0, 0]} />
       </group>

@@ -29,7 +29,7 @@ type ContextType = Record<string, React.ForwardRefExoticComponent<JSX.IntrinsicE
 export default function Eraser(props: JSX.IntrinsicElements['group']) {
   const { nodes, materials } = useGLTF('/models/eraser/scene.gltf') as GLTFResult
   
-/*  const [theta, setTheta] = useState<number>(Math.PI / 2);
+  const [theta, setTheta] = useState<number>(Math.PI / 2);
   const [xRot, setXRot] = useState<number>(0);
   const [yRot, setYRot] = useState<number>(0);
   const [zRot, setZRot] = useState<number>(0);
@@ -49,10 +49,10 @@ export default function Eraser(props: JSX.IntrinsicElements['group']) {
         setYRot(yRot => yRot + 0.01);
         ref.current.rotation.set(xRot, yRot, zRot);
     }
-  });  */
+  }); 
   
   return (
-    <group {...props} dispose={null} scale={0.5}>
+    <group ref={ref} {...props} dispose={null} scale={0.5}>
       <group>
         <mesh geometry={nodes.Eraser_Low_eraser1_0.geometry} material={materials.eraser1} rotation={[-Math.PI / 2, 0, 0]} scale={100} />
       </group>

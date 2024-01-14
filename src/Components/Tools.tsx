@@ -62,7 +62,7 @@ const ToolsSection = () => {
             <div className="flex flex-wrap object-center justify-center">
                 <div className="terminal-style w-1/2 h-64 bg-black p-8 flex border-solid border-slate-500 border-8 my-16 relative -z-10">
                     <div className="text-lime-600 relative top-val -left-4 flex flex-col w-2 h-15"> 1 2 3 4 5 6 </div>
-                    <div className="text-lime-600 absolute -top-1 left-14 z-20 font-medium"> //Hello World</div>       
+                    <div className="text-lime-600 absolute -top-1 left-14 z-20 font-medium"> {"//Hello World"} </div>       
                     <TypingWindow />
                 </div>
                 { toolData } 

@@ -1,6 +1,7 @@
 import React, {use} from "react";
 import { onValue, DatabaseReference } from "firebase/database";
 import { StorageReference, ref, FirebaseStorage, getDownloadURL } from "firebase/storage";
+import Image from 'next/image';
 
 interface Contact {
     name: string,
@@ -18,19 +19,19 @@ interface DatabaseData {
     imageDatabase: FirebaseStorage;
 }
 
-async function getImageURL(referenceValue: StorageReference): Promise<React.JSX.Element> {
+async function getImage(referenceValue: StorageReference): Promise<React.JSX.Element> {
     let url:string = await getDownloadURL(referenceValue);
-    return <img className="h-full z-20" src={url}></img>;
+    return <img className="h-full z-20" src={url} alt=""/>;
 }
 
 const ContactComp = ({contact, imageBase}: ContactCompInputs ): React.JSX.Element => {
     let imageRef: StorageReference = ref(imageBase, contact.image);
     
-    const imageData = use(getImageURL(imageRef));
+    const imageData = use(getImage(imageRef));
     
     return (
         <div className="flex flex-wrap relative w-1/6 m-5 justify-center contact-class">
-            <span className="absolute mx-auto bg-sky-300 text-slate-600 p-2 rounded-3xl pointer-events-none before:content-[''] before:w-5 before:h-5 before:transform before:rotate-45 before:absolute before:-bottom-2 before:right-1/2 before:-z-10 before:bg-sky-300 opacity-0"> {contact.name} </span>
+            <span className="absolute z-20 mx-auto bg-sky-300 text-slate-600 p-2 rounded-3xl pointer-events-none before:content-[''] before:w-5 before:h-5 before:transform before:rotate-45 before:absolute before:-bottom-2 before:right-1/2 before:-z-10 before:bg-sky-300 opacity-0"> {contact.name} </span>
             <a className="flex relative w-full h-16 p-2 rounded-xl justify-center border-solid border-slate-600 border-4 contact-button hover:border-sky-300 after:bg-blue-700 after:w-full after:h-24 after:text-white after:absolute after:top-0 after:left-0 after:content-[''] after:transition-all duration-125 after:translate-y-full after:hover:translate-y-0 after:flex after:justify-center after:object-center after:py-4 after:z-10 overflow-hidden" href={contact.link}>
                 {imageData}
             </a>
