@@ -1,7 +1,6 @@
 import React, {use} from "react";
 import { onValue, DatabaseReference } from "firebase/database";
 import { StorageReference, ref, FirebaseStorage, getDownloadURL } from "firebase/storage";
-import Image from 'next/image';
 
 interface Contact {
     name: string,
@@ -42,7 +41,7 @@ const ContactComp = ({contact, imageBase}: ContactCompInputs ): React.JSX.Elemen
 async function contactProps({contactReference, imageDatabase}: DatabaseData): Promise<React.JSX.Element> {
     let contactProp: React.JSX.Element = <></>;
     
-    new Promise<void>((resolve, reject) => {
+    await new Promise<void>((resolve, reject) => {
         onValue(contactReference, (snapshot) => {
             let dataList: Array<Contact> = Object.values(snapshot.val());
             let contactList: Array<React.JSX.Element> = dataList.map((element: Contact, pos: number) => <ContactComp key={pos} contact={element} imageBase={imageDatabase} />);
