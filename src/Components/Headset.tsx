@@ -51,7 +51,7 @@ type GLTFResult = GLTF & {
 type ContextType = Record<string, React.ForwardRefExoticComponent<JSX.IntrinsicElements['mesh']>>
 
 export default function Headset(props: JSX.IntrinsicElements['group']) {
-  const { nodes, materials } = useGLTF('/models/headset/scene.gltf') as GLTFResult
+  const { nodes, materials } = useGLTF(process.env.NEXT_PUBLIC_BUCKET + 'headset/scene.gltf') as GLTFResult
     
   const [xRot, setXRot] = useState<number>(0);
   const [yRot, setYRot] = useState<number>(0);
@@ -148,4 +148,4 @@ export default function Headset(props: JSX.IntrinsicElements['group']) {
   )
 }
 
-useGLTF.preload('/models/headset/scene.gltf')
+useGLTF.preload(process.env.NEXT_PUBLIC_BUCKET + 'headset/scene.gltf')

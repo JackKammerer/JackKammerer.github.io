@@ -29,7 +29,7 @@ type GLTFResult = GLTF & {
 type ContextType = Record<string, React.ForwardRefExoticComponent<JSX.IntrinsicElements['mesh']>>
 
 export default function Computer2(props: JSX.IntrinsicElements['group']) {
-  const { nodes, materials } = useGLTF('/models/computer2/scene.gltf') as GLTFResult
+  const { nodes, materials } = useGLTF(process.env.NEXT_PUBLIC_BUCKET + 'computer2/scene.gltf') as GLTFResult
   return (
     <group {...props} dispose={null} scale={2.6}>
       <group rotation={[-Math.PI / 2, 0, 0]} >
@@ -46,4 +46,4 @@ export default function Computer2(props: JSX.IntrinsicElements['group']) {
   )
 }
 
-useGLTF.preload('/models/computer2/scene.gltf')
+useGLTF.preload(process.env.NEXT_PUBLIC_BUCKET + 'computer2/scene.gltf')

@@ -8,6 +8,26 @@ npm install
 
 Then, edit ```node_modules/@react-three/fiber/dist/react-three-fiber.esm.js``` so the ```connect``` section of the return JSON is wrapped in ```if (target != null) {}``` to prevent errors. The site will still work even without this change. 
 
+
+Setup the .env.local file to contain these variables. The first 8 are for Firebase, and the last is a storage bucket link.
+
+
+```bash
+
+NEXT_PUBLIC_FIRE_API_KEY
+NEXT_PUBLIC_GITHUB_API_KEY
+NEXT_PUBLIC_AUTH_DOMAIN
+NEXT_PUBLIC_PROJECT_ID
+NEXT_PUBLIC_STORAGE_BUCKET
+NEXT_PUBLIC_SENDER_ID
+NEXT_PUBLIC_APP_ID
+NEXT_PUBLIC_DATA_URL
+
+NEXT_PUBLIC_BUCKET
+
+```
+
+
 Then, run the development server:
 
 ```bash
@@ -25,7 +45,7 @@ This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-opti
 
 ## Attributions:
 
-#### All of the models used in this site (as seen on the website) are not my own. Here are the attributions for all of the models used in the site.
+#### All of the models used in this site (as seen on the website) are not my own. Here are the attributions for all of the models used in the site. They were downloaded for free on Sketchfab. 
 
 IBM PCjr 4863 Computer-Freepoly.org from Freepoly.org at https://sketchfab.com/3d-models/ibm-pcjr-4863-computer-freepolyorg-1c3c3cd0643d44d49a1771048da74c62
 

@@ -27,7 +27,7 @@ type GLTFResult = GLTF & {
 type ContextType = Record<string, React.ForwardRefExoticComponent<JSX.IntrinsicElements['mesh']>>
 
 export default function Eraser(props: JSX.IntrinsicElements['group']) {
-  const { nodes, materials } = useGLTF('/models/eraser/scene.gltf') as GLTFResult
+  const { nodes, materials } = useGLTF(process.env.NEXT_PUBLIC_BUCKET + 'eraser/scene.gltf') as GLTFResult
   
   const [theta, setTheta] = useState<number>(Math.PI / 2);
   const [xRot, setXRot] = useState<number>(0);
@@ -60,4 +60,4 @@ export default function Eraser(props: JSX.IntrinsicElements['group']) {
   )
 }
 
-useGLTF.preload('/models/eraser/scene.gltf')
+useGLTF.preload(process.env.NEXT_PUBLIC_BUCKET + 'eraser/scene.gltf')

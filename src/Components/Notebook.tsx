@@ -32,7 +32,7 @@ type GLTFResult = GLTF & {
 type ContextType = Record<string, React.ForwardRefExoticComponent<JSX.IntrinsicElements['mesh']>>
 
 export default function Notebook(props: JSX.IntrinsicElements['group']) {
-  const { nodes, materials } = useGLTF('/models/notebook/scene.gltf') as GLTFResult
+  const { nodes, materials } = useGLTF(process.env.NEXT_PUBLIC_BUCKET + 'notebook/scene.gltf') as GLTFResult
   
   const [back, setBack] = useState<boolean>(false);
   const [theta, setTheta] = useState<number>(Math.PI);
@@ -79,4 +79,4 @@ export default function Notebook(props: JSX.IntrinsicElements['group']) {
   )
 }
 
-useGLTF.preload('/models/notebook/scene.gltf')
+useGLTF.preload(process.env.NEXT_PUBLIC_BUCKET + 'notebook/scene.gltf')

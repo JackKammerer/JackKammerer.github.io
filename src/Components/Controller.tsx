@@ -57,7 +57,7 @@ export default function Controller({ position, rotation, order }: ControllerProp
     } else {
       setXPos(-2);
     }
-  })
+  }, [])
 
   useFrame(() => {
     if (ref.current != null) {
@@ -110,7 +110,7 @@ export default function Controller({ position, rotation, order }: ControllerProp
   });
 
 
-  const { nodes, materials } = useGLTF('/models/controller/scene.gltf') as GLTFResult
+  const { nodes, materials } = useGLTF(process.env.NEXT_PUBLIC_BUCKET + 'controller/scene.gltf') as GLTFResult
   return (
     <group ref={ref} position={position} rotation={rotation} dispose={null}>
       <group rotation={[-Math.PI / 2, 0, 0]} scale={0.72}>
@@ -128,4 +128,4 @@ export default function Controller({ position, rotation, order }: ControllerProp
   )
 }
 
-useGLTF.preload('/models/controller/scene.gltf')
+useGLTF.preload(process.env.NEXT_PUBLIC_BUCKET + 'controller/scene.gltf')

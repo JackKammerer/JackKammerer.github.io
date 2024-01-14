@@ -28,7 +28,7 @@ type GLTFResult = GLTF & {
 type ContextType = Record<string, React.ForwardRefExoticComponent<JSX.IntrinsicElements['mesh']>>
 
 export default function Calculator(props: JSX.IntrinsicElements['group']) {
-  const { nodes, materials } = useGLTF('/models/calculator/scene.gltf') as GLTFResult
+  const { nodes, materials } = useGLTF(process.env.NEXT_PUBLIC_BUCKET + 'calculator/scene.gltf') as GLTFResult
   
   const [theta, setTheta] = useState<number>(0);
   const [xRot, setXRot] = useState<number>(1.5);
@@ -65,4 +65,4 @@ export default function Calculator(props: JSX.IntrinsicElements['group']) {
   )
 }
 
-useGLTF.preload('/models/calculator/scene.gltf')
+useGLTF.preload(process.env.NEXT_PUBLIC_BUCKET + 'calculator/scene.gltf')
