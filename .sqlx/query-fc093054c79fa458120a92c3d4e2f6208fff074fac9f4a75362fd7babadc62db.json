@@ -1,0 +1,17 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "UPDATE contacts SET contact_name = COALESCE($1, contact_name), link_name = COALESCE($2, link_name), image_name = COALESCE($3, image_name) WHERE id=$4",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Text",
+        "Text",
+        "Text",
+        "Uuid"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "fc093054c79fa458120a92c3d4e2f6208fff074fac9f4a75362fd7babadc62db"
+}

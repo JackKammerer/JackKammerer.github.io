@@ -1,0 +1,45 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./dockerFiles/webApp/Dockerfile
+    restart: always
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD} 
+      - POSTGRES_DB=${POSTGRES_DB}
+      - DATABASE_URL=${DATABASE_URL} 
+      - SERVER_URL=${SERVER_URL}
+      - API_GITHUB_KEY=${API_GITHUB_KEY}
+      - APP_USERNAME=${APP_USERNAME}
+      - APP_PASSWORD=${APP_PASSWORD}
+      - ADMIN_ACCOUNT_USERNAME=${ADMIN_ACCOUNT_USERNAME}
+      - ADMIN_ACCOUNT_PASSWORD=${ADMIN_ACCOUNT_PASSWORD}
+      - SQLX_OFFLINE=true
+      - RUST_LOG=tower_http=trace
+    ports:
+      - 3000:3000
+    depends_on:
+      - database
+    networks:
+      - app_network
+  
+  database:
+    build:
+      context: ./dockerFiles/customPostgres 
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - APP_USERNAME=${APP_USERNAME}
+      - APP_PASSWORD=${APP_PASSWORD}
+    ports:
+      - 5432:5432
+    networks:
+      - app_network
+
+networks:
+  app_network:
+    driver: bridge

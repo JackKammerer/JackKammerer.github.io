@@ -1,52 +1,38 @@
 ## Getting Started
 
-First, install all dependencies:
+To use this project, there are three steps:
+
+1. Install Docker and/or Docker Desktop.
+
+2. Setup a .env file in the directory. This file should have the following schema:
 
 ```bash
-npm install
-```
+POSTGRES_USER
+POSTGRES_PASSWORD
+POSTGRES_DB
 
-Then, edit ```node_modules/@react-three/fiber/dist/react-three-fiber.esm.js``` so the ```connect``` section of the return JSON is wrapped in ```if (target != null) {}``` to prevent errors. The site will still work even without this change. 
+DATABASE_URL
+SERVER_URL
 
+API_GITHUB_KEY
 
-Setup the .env.local file to contain these variables. The first 7 are for Firebase, the 8th is a Github API key, and the last is a storage bucket link.
+APP_USERNAME
+APP_PASSWORD
 
-
-```bash
-
-NEXT_PUBLIC_FIRE_API_KEY
-NEXT_PUBLIC_AUTH_DOMAIN
-NEXT_PUBLIC_PROJECT_ID
-NEXT_PUBLIC_STORAGE_BUCKET
-NEXT_PUBLIC_SENDER_ID
-NEXT_PUBLIC_APP_ID
-NEXT_PUBLIC_DATA_URL
-
-NEXT_PUBLIC_GITHUB_API_KEY
-
-NEXT_PUBLIC_BUCKET
+ADMIN_ACCOUNT_USERNAME
+ADMIN_ACCOUNT_PASSWORD
 
 ```
+These define several aspects of the database. There are some rules outlined before for what these strings should be to allow the site to work properly.
 
+3. Run the server using Docker Compose: *docker compose up -d*.
 
-Then, run the development server:
-
-```bash
-npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-
+Now, the server is running with the database. I will add more documentation to the future and outline some features, but this a relatively flexible and cohesive website. Powered by Rust, Axum, and Askama on the server side, and Javascript, Typescript, Tailwind, and Vite on the client side. Those repositories will be saved and linked soon.
 
 
 ## Attributions:
 
-#### All of the models used in this site (as seen on the website) are not my own. Here are the attributions for all of the models used in the site. They were downloaded for free on Sketchfab. 
+#### All of the models used in this site (as seen on the website) are not my own. Here are the attributions for all of the models used in the site. They were downloaded for free on Sketchfab. All of these models have been modified and converted into .glb files, but the originals are still stored in this repository, and credited below. 
 
 IBM PCjr 4863 Computer-Freepoly.org from Freepoly.org at https://sketchfab.com/3d-models/ibm-pcjr-4863-computer-freepolyorg-1c3c3cd0643d44d49a1771048da74c62
 

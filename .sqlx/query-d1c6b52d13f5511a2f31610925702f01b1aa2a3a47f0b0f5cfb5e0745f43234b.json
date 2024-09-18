@@ -1,0 +1,18 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "INSERT INTO projectData (project_name, project_description, image_link, github_repo, tools_used) VALUES ($1, $2, $3, $4, $5)",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Text",
+        "Text",
+        "Text",
+        "Text",
+        "TextArray"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "d1c6b52d13f5511a2f31610925702f01b1aa2a3a47f0b0f5cfb5e0745f43234b"
+}

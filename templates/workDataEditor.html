@@ -1,0 +1,40 @@
+<section id="work" class="bg-gray-800 shadow-md rounded-lg p-6 mb-8">
+    <div>
+        <h1 class="text-2xl font-bold mb-4">Work Experience</h1>
+        <ul class="space-y-6">
+            {% for job in jobs %}
+            <li id="{{job.id}}" class="border-b pb-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-2">
+                    <label class="block">
+                        <p class="text-l underline">Position:</p>
+                        <input type="text" class="textUpdate position mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 bg-gray-500 p-1" value="{{job.position}}">
+                    </label>
+                    <label class="block">
+                        <p class="text-l underline">Company:</p>
+                        <input type="text" class="textUpdate company mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 bg-gray-500 p-1" value="{{job.company}}">
+                    </label>
+                </div>
+                <label class="block mb-2">
+                    <p class="text-l underline">Date Range:</p>
+                    <input type="text" class="textUpdate dates mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 bg-gray-500 p-1" value="{{job.dates}}">
+                </label>
+                <p class="text-l underline">Description:</p>
+                <ul class="details space-y-2 mb-2">
+                    {% for detail in job.details %}
+                    <li class="flex items-center space-x-2"> 
+                        <label class="flex w-full">
+                            <p class="text-l mr-5">Detail:</p>
+                            <input type="text" class="updateListText block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 bg-gray-500 p-1" value="{{detail}}">
+                        </label>
+                        <button class="updateListDelete bg-red-800 hover:bg-red-500 text-white font-bold py-1 px-2 rounded">Delete</button>
+                    </li>
+                    {% endfor %}
+                </ul>
+                <button class="updateListAdd bg-blue-600 hover:bg-blue-400 text-white font-bold py-2 px-4 rounded mr-2">Add Detail</button>
+                <button class="deleteObject bg-red-800 hover:bg-red-500 text-white font-bold py-2 px-4 rounded">Delete Past Job</button>
+            </li>
+            {% endfor %}
+        </ul>
+        <button class="createObject bg-blue-900 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">Add Past Job</button>
+    </div>
+</section>

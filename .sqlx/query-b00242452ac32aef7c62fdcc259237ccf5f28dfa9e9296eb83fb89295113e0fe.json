@@ -1,0 +1,22 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "SELECT items FROM arrayData WHERE label = $1",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "items",
+        "type_info": "TextArray"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Text"
+      ]
+    },
+    "nullable": [
+      false
+    ]
+  },
+  "hash": "b00242452ac32aef7c62fdcc259237ccf5f28dfa9e9296eb83fb89295113e0fe"
+}

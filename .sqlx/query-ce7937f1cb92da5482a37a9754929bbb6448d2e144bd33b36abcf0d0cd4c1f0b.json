@@ -1,0 +1,38 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "SELECT id, contact_name, link_name, image_name FROM contacts",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 1,
+        "name": "contact_name",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 2,
+        "name": "link_name",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 3,
+        "name": "image_name",
+        "type_info": "Text"
+      }
+    ],
+    "parameters": {
+      "Left": []
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      false
+    ]
+  },
+  "hash": "ce7937f1cb92da5482a37a9754929bbb6448d2e144bd33b36abcf0d0cd4c1f0b"
+}

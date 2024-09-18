@@ -1,0 +1,46 @@
+<section id="projects" class="bg-gray-800 shadow-md rounded-lg p-6 mb-8">
+    <div>
+        <h2 class="text-2xl font-bold mb-4">Highlighted Projects</h2>
+        <ul class="space-y-6"> 
+            {% for project in projects %}
+            <div id="{{ project.id }}" class="border-b pb-4"> 
+                <label class="block mb-2">
+                    <p class="text-l underline">Project Name:</p>
+                    <input type="text" class="textUpdate project_name mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 bg-gray-500 p-1" value="{{project.project_name}}">
+                </label>
+                <p class="text-l underline mb-2">Project Tools:</p>
+                <ul class="tools_used space-y-2 mb-2">
+                    {% for tool in project.tools_used %}
+                    <li class="flex items-center space-x-2"> 
+                        <label class="flex w-full">
+                            <p class="text-l mr-5">Tool:</p>
+                            <input type="text" class="updateListText block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 bg-gray-500 p-1" value="{{tool}}">
+                        </label>
+                        <button class="updateListDelete bg-red-800 hover:bg-red-500 text-white font-bold py-1 px-2 rounded">Delete</button>
+                    </li>
+                    {% endfor %}
+                </ul>
+                <button class="updateListAdd bg-blue-600 hover:bg-blue-400 text-white font-bold py-2 px-4 rounded mb-2">Add New Tool</button>
+                <div class="mb-2">
+                    <p class="text-l underline">Description:</p>
+                    <textarea class="textUpdate project_description mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 bg-gray-500 p-1" rows="5">{{ project.project_description }}</textarea>
+                </div>
+
+
+                {% if project.github_repo != None %}
+                <label class="block mb-2">
+                    <p class="text-l underline">Repo Link:</p>
+                    <input type="text" class="textUpdate github_repo mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 bg-gray-500 p-1" value="{{ project.github_repo.as_ref().unwrap() }}">
+                </label>
+                {% endif %}
+                <label class="block mb-2">
+                    <p class="text-l underline">Image Link:</p>
+                    <input type="text" class="textUpdate image_link mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 bg-gray-500 p-1" value="{{ project.image_link }}">
+                </label>
+                <button class="deleteObject bg-red-800 hover:bg-red-500 text-white font-bold py-2 px-4 rounded">Delete Project</button>
+            </div>
+            {% endfor %}
+        </ul>
+        <button class="createObject bg-blue-900 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">Add Project</button>
+    </div>
+</section>

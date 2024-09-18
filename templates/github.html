@@ -1,0 +1,23 @@
+<section class="w-full ml-auto mr-auto mb-20" >
+    <div class="p-10 flex flex-wrap justify-center">
+        <h4 class = "text-6xl mx-auto mb-16 text-center w-2/3"> Github Projects</h4>
+        <p class="text-xl mb-20"> A live update of my current GitHub repository projects. Click on any of them, and you will be taken directly to the repository. </p>
+        <section class="flex flex-wrap justify-center"> 
+
+            {% for project in projects %}
+            <a href={{project.html_url}} class="w-1/4 p-2 m-8 primary-dark relative overflow-hidden githubProject">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+
+                <h2 class="text-xl bold mb-2"> {{project.name}} </h2>
+                {% if project.language != None %}
+                    <p class="text-sm"> Most of this project is written in <em> {{project.language.as_ref().unwrap()}} </em> </p>
+                {% endif %}
+                <p class="mt-3"> {{project.description}} </p>
+            </a>
+            {% endfor %}
+        </section>
+    </div>
+</section>

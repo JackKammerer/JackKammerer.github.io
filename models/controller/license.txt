@@ -1,0 +1,11 @@
+Model Information:
+* title:	Controller
+* source:	https://sketchfab.com/3d-models/controller-5ba4ef24d6554dc9b34417f41b7b0191
+* author:	cosmicollie (https://sketchfab.com/cosmicollie)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Controller" (https://sketchfab.com/3d-models/controller-5ba4ef24d6554dc9b34417f41b7b0191) by cosmicollie (https://sketchfab.com/cosmicollie) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

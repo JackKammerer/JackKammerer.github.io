@@ -1,0 +1,19 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "UPDATE projectData SET project_name= COALESCE($1, project_name), project_description = COALESCE($2, project_description), image_link = COALESCE($3, image_link), github_repo = COALESCE($4, github_repo), tools_used = COALESCE($5, tools_used) WHERE id=$6",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Text",
+        "Text",
+        "Text",
+        "Text",
+        "TextArray",
+        "Uuid"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "9150836f39d153c8262b017259a1842ea3c0334c44dbce7beb4d56702e85bfbd"
+}

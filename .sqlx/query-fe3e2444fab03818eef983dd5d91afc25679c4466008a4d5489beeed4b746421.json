@@ -1,0 +1,18 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "UPDATE workData SET position = COALESCE($1, position), company = COALESCE($2, company), dates = COALESCE($3, dates), details = COALESCE($4, details) WHERE id=$5",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Text",
+        "Text",
+        "Text",
+        "TextArray",
+        "Uuid"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "fe3e2444fab03818eef983dd5d91afc25679c4466008a4d5489beeed4b746421"
+}

@@ -1,0 +1,20 @@
+<section id="tools" class="bg-gray-800 shadow-md rounded-lg p-6 mb-8">
+    <div>
+        <h2 class="text-xl font-bold mb-4">Languages, Frameworks, and Other Tools</h2>
+        <div id="{{ id }}">
+            <p class="text-l underline mb-2">All Tools Used:</p>
+            <ul class="tools space-y-2 mb-2"> 
+                {% for tool in items %}
+                <li class="flex items-center space-x-2"> 
+                    <label class="flex w-full">
+                        <p class="text-l mr-5">Tool:</p>
+                        <input type="text" class="updateListText block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 bg-gray-500 p-1" value="{{tool}}">
+                    </label>
+                    <button class="updateListDelete bg-red-800 hover:bg-red-500 text-white font-bold py-1 px-2 rounded">Delete</button>
+                </li>
+                {% endfor %}
+            </ul>
+            <button class="updateListAdd bg-blue-600 hover:bg-blue-400 text-white font-bold py-2 px-4 rounded">Add Tool</button>
+        </div>
+    </div>
+</section>

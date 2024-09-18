@@ -1,0 +1,70 @@
+<section id="work" class="secondary-back w-full ml-auto mr-auto mb-20">
+    <div class="p-10">
+        <h1 class="titleClass"> Work Experience </h1>
+        <div class="flex">
+        <ul class="list-none w-1/2">
+            {% for job in jobs %}
+            <li class="mt-10 p-5 w-full flex flex-wrap primary-dark">
+                <div class="flex flex-wrap w-full">
+                    <div class="mt-5 mb-5 mr-auto">
+                        <h2 class="font-bold text-3xl mr-5"> {{job.position}}: </h2>
+                        <p class="flex text-xl items-end"> {{job.company}} </p>
+                    </div>
+                    <p class="font-extralight italic text-sm"> {{job.dates}} </p>
+                </div>
+                <p class="text-xl font-bold mr-64 mb-5 mt-10" > Description: </p>
+                <ul>
+                    {% for detail in job.details %}
+                    <li> {{detail}} </li>
+                    {% endfor %}
+                </ul>
+            </li>
+            {% endfor %}
+        </ul>
+        <div class="w-1/2 flex flex-wrap justify-center ml-5">
+            {% if !is_mobile %}
+                <div class="w-1/3 my-auto mr-10 text-gray-500">
+                    <div class="italic">You can click and drag on the box to get a better view of the 3D objects!</div>
+                    <i class="fa-solid fa-arrow-turn-up rotate-90 text-3xl ml-1 mt-3"></i>
+                </div>
+                <div id="math-scene-loading" class="mt-8 flex" style="width:29rem; height:26rem; border:solid 4px gray;"> 
+                    <div class="mx-auto my-auto ml-auto mr-auto text-3xl">
+                    Loading... 
+                    <div class="loader"></div>
+                    </div>
+                </div>
+                <div style="display:none;" id="math-scene"></div>
+            {% else %}
+                <div class="w-1/3 my-auto mr-10 text-gray-500"></div>
+                <div id="math-scene">
+                    <img class="set-right mt-8" style="width: 29rem;height: 26rem; border: solid 4px gray" src="/models/MathScene.gif">
+                </div>
+            {% endif %}
+
+            {% if !is_mobile %}
+                <div class="w-1/3 my-auto mr-10 text-gray-500">
+                    <div class="italic">You can click and drag on the box to get a better view of the 3D objects!</div>
+                    <i class="fa-solid fa-arrow-turn-down rotate-90 text-3xl mr-1 mt-3"></i>
+                </div>
+                <div id="vr-scene-loading" class="mt-8 flex" style="width:29rem; height:26rem; border:solid 4px gray;"> 
+                    <div class="mx-auto my-auto ml-auto mr-auto text-3xl">
+                    Loading... 
+                    <div class="loader"></div>
+                    </div>
+                </div>
+                <div style="display:none;" id="vr-scene"></div>
+            {% else %}
+                <div class="w-1/3 my-auto mr-10 text-gray-500"></div>
+                <div id="vr-scene">
+                    <img class="set-right mt-8" style="width: 29rem;height: 26rem; border: solid 4px gray" src="/models/VRScene.gif">
+                </div>
+            {% endif %}
+
+            <div class="w-1/3 my-auto mr-10 text-gray-500"></div>
+            <div id="cyber-scene">
+                <img class="set-right mt-8" style="width: 29rem;height: 26rem; border: solid 4px gray" src="/models/RotatingDesk.gif">
+            </div>
+        </div>
+        </div>
+    </div>
+</section>

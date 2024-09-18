@@ -1,0 +1,50 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "SELECT id, project_name, project_description, github_repo, image_link, tools_used FROM projectData",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 1,
+        "name": "project_name",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 2,
+        "name": "project_description",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 3,
+        "name": "github_repo",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 4,
+        "name": "image_link",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 5,
+        "name": "tools_used",
+        "type_info": "TextArray"
+      }
+    ],
+    "parameters": {
+      "Left": []
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      true,
+      false,
+      false
+    ]
+  },
+  "hash": "62837184598ac161f54a5916f468834f48f44e09375e68375d2932bb580f05ae"
+}

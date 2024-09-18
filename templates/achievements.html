@@ -1,0 +1,22 @@
+<section id="achievements" class="w-full ml-auto mr-auto mb-20">
+    <div class="p-5 flex justify-center flex-wrap">
+        <h2 class="text-6xl mb-10"> Academic and Professional Accomplishments </h2>
+        <div class="flex flex-wrap justify-center object-center">
+            <section class="w-1/4 flex justify-center flex-wrap">
+                {% for image in left_images %}
+                <img class="hidden-image-left h-1/4 -z-10 my-10 border-solid border-slate-400 border-4 side-margin bg-white" src={{image}} alt=""/>
+                {% endfor %}
+            </section>
+            <ul class="w-5/12 list-none flex justify-center align-center flex-wrap"> 
+                {% for achievement in achievements_content %}
+                <li class="my-10 w-3/4 text-center"> {{achievement}} </li>
+                {% endfor %}
+            </ul>
+            <section class="w-1/4 flex justify-center flex-wrap">
+                {% for image in right_images %}
+                <img class="hidden-image-right h-1/4 -z-10 my-10 border-solid border-slate-400 border-4 side-margin bg-white" src={{image}} alt=""/>
+                {% endfor %}
+            </section>
+        </div>
+    </div>
+</section>

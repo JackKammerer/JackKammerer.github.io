@@ -1,0 +1,44 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "SELECT id, school_name, school_dates, degree, awards FROM schoolData",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 1,
+        "name": "school_name",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 2,
+        "name": "school_dates",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 3,
+        "name": "degree",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 4,
+        "name": "awards",
+        "type_info": "TextArray"
+      }
+    ],
+    "parameters": {
+      "Left": []
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      false,
+      false
+    ]
+  },
+  "hash": "a97509575ef80e8a5552737c6cccf97d7ee8936b3b5f0ccba227e272f0044d72"
+}

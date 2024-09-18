@@ -1,0 +1,31 @@
+name: Run App
+
+on:
+    push:
+        branches:
+            - main
+
+jobs:
+    start-with-docker-compose:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout Repository
+              uses: actions/checkout@v3
+
+            - name: Set up Docker
+              uses: docker/setup-buildx-action@v2
+
+            - name: Start App
+              run: docker compose up --build -d
+              env:
+                POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+                POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }} 
+                POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+                DATABASE_URL: ${{ secrets.DATABASE_URL }} 
+                SERVER_URL: ${{ secrets.SERVER_URL }}
+                GITHUB_API_KEY: ${{ secrets.GITHUB_API_KEY }}
+                APP_USERNAME: ${{ secrets.APP_USERNAME }}
+                APP_PASSWORD: ${{ secrets.APP_PASSWORD }}
+                ADMIN_ACCOUNT_USERNAME: ${{ secrets.ADMIN_ACCOUNT_USERNAME }}
+                ADMIN_ACCOUNT_PASSWORD: ${{ secrets.ADMIN_ACCOUNT_PASSWORD }}

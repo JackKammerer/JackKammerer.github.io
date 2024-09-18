@@ -1,0 +1,29 @@
+<section id="school" class="secondary-back w-full ml-auto mr-auto mb-20">
+    <div class="p-10">
+        <h1 class="titleClass"> School Experience </h1>
+        <div class="flex flex-wrap mb-20">
+            <ul class="w-1/2 list-none">
+                {% for school in schools %}
+                <li class="mt-10 p-5 w-full flex flex-wrap primary-dark">
+                    <div class="mt-5 mb-5">
+                        <h2 class="font-bold text-3xl"> {{school.school_name}} </h2>
+                        <p class="font-extralight italic text-sm"> {{school.school_dates}} </p>
+                    </div>
+                    <p class="mb-5 w-11/12"> <strong className="mr-1 text-xl">Degree:</strong> {{school.degree}} </p>
+                    <p class="text-xl font-bold mr-64 mb-5" > Accomplishments: </p>
+                    <ul>
+                        {% for award in school.awards %}
+                            <li> {{award}} </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                {% endfor %}
+            </ul>
+            <div class="ml-auto -mr-10 w-1/2 p-4 fixed-height"> 
+                {% for img_url in images %}
+                <img class="h-1/4 my-10 border-solid border-slate-400 border-4 side-margin" src={{img_url}} alt=""/>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>

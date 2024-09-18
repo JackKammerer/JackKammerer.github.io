@@ -1,0 +1,18 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "UPDATE schoolData SET school_name = COALESCE($1, school_name), school_dates = COALESCE($2, school_dates), degree = COALESCE($3, degree), awards = COALESCE($4, awards) WHERE id=$5",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Text",
+        "Text",
+        "Text",
+        "TextArray",
+        "Uuid"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "57f2962980b1fb70de8ac0ef677a0426cf04e5e0d65a0a261542151968a80f56"
+}
