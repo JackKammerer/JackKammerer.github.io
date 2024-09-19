@@ -98,7 +98,7 @@ INSERT INTO schoolData (school_name, school_dates, degree, awards)
 VALUES
     (
         'Clackamas Middle College',
-        '< 09/2018 - 06/2022 >',
+        '09/2018 - 06/2022',
         'High School Diploma',
         '{
         "Graduated with a 4.0 GPA", 
@@ -109,7 +109,7 @@ VALUES
     ),
     (
         'Clackamas Community College',
-        '< 04/2019 - 06/2022 >',
+        '04/2019 - 06/2022',
         'Associate of Arts Degree',
         '{
         "Graduated with a 4.0 GPA.", 
@@ -118,7 +118,7 @@ VALUES
     ),
     (
         'Oregon State University',
-        '< 09/2022 - Present >',
+        '09/2022 - Present',
         'Bachelor of Science (Computer Science) Degree',
         '{
         "Maintained a 4.0 GPA, Dean''s List Fall 2022-Fall 2023.", 
@@ -139,7 +139,7 @@ CREATE TABLE workData (
 INSERT INTO workData (position, company, dates, details)
 VALUES
     (
-        'Math Tutor', 'Clackamas Community College', '< 09/2021 - 06/2022 >', 
+        'Math Tutor', 'Clackamas Community College', '09/2021 - 06/2022', 
         '{
         "Worked with students in a wide variety of subjects including geometry, calculus, trigonometry, and statistics.", 
         "Aided students in remote and in-person environments.", 
@@ -148,7 +148,7 @@ VALUES
         }'
     ),
     (
-        'Extended Reality Intern', 'Portland State University', '< 06/2021 - 08/2021 >',
+        'Extended Reality Intern', 'Portland State University', '06/2021 - 08/2021',
         '{
         "This internship was the focus of a 3-month internship through the Saturday Academy''s ASE internship program.", 
         "Tested the lab material for CS 410/510 with Dr. Ehsan Aryafar and his graduate student Samuel Shippey.", 
@@ -159,7 +159,7 @@ VALUES
         }'
     ),
     (
-        'SOC Analyst', 'Oregon State University', '< 09/2022 - Present >',
+        'SOC Analyst', 'Oregon State University', '09/2023 - Present',
         '{
         "Analyzed and responded to potential security flags.", 
         "Used the Microsoft Azure suite of tools, including Sentinel and Defender XDR.", 
@@ -167,6 +167,15 @@ VALUES
         "Created new automation tools to better identify suspicious behavior and close alerts.", 
         "Refined and updated old automation rules.", 
         "Examined phishing and spam emails for suspicious activity."
+        }'
+    ),
+    (
+        'Tool Readiness Intern', 'Thermo Fisher Scientific', '04/2024 - 09/2024',
+        '{
+        "Used Python, C#, and OpenCV to design, build, and test computer vision applications.",
+        "Added direct contributions to the Tool Readiness codebase.",
+        "Tested code directly on electron microscopes.",
+        "Created 5 seperate computer vision applications which improved speed, accuracy, and consistency of image recognition in parts of Tool Readiness."
         }'
     );
 
@@ -186,7 +195,7 @@ VALUES
         "C#", "Python", "Rust", "x86 Assembly", "Microsoft Macro Assembly (MASM)", 
         "Bash Script", "SQL", "Kusto Query Language", "PHP", "QT Framework", 
         "React", "NodeJS", "Express.js", "Vite", "NextJS", "Ghidra", 
-        "gdb", "gcc/g++", "Github", "Git", "Unity", "Docker"
+        "gdb", "gcc/g++", "Github", "Git", "Unity", "Docker", "OpenCV"
         }',
         'toolList'
     ),
