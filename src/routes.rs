@@ -462,7 +462,7 @@ pub async fn show_home_page(State(state): State<SharedState>, headers: HeaderMap
 
     if let Some(user_agent) = headers.get("user-agent") {
         if let Ok(user_agent_string) = user_agent.to_str() {
-            is_mobile_user_agent = String::from(user_agent_string).contains("mobile");
+            is_mobile_user_agent = String::from(user_agent_string).to_ascii_lowercase().contains("mobile");
         }
         else {
             is_mobile_user_agent = false;
